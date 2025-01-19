@@ -1,0 +1,150 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0;
+  padding: 20px;
+  background-color: black;
+  height: 100vh; /* Asegura que el contenido ocupe toda la altura de la pantalla */
+  box-sizing: border-box; /* Asegura que el borde no afecte el tamaño */
+}
+
+/* Estilo para el texto que debe estar abajo del título */
+.text-bottom {
+  text-align: center; /* Centrar el texto */
+  font-size: 18px; /* Ajustar tamaño de texto */
+  font-weight: 600;
+  margin-top: -20px; /* Espacio entre el título y este texto */
+  color: white;
+}
+
+h1 {
+  text-align: center;
+  font-family: 'Walter Turncoat', sans-serif;
+  margin-bottom: 30px;
+  margin-top: -400px; /* Subir el título moviéndolo hacia arriba */
+  color: white; /* Título en color blanco */
+}
+
+/* Galería de imágenes con carpetas */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos carpetas por fila */
+  gap: 20px;
+  width: 80%;
+  margin-top: 20px;
+  justify-items: center; /* Centra las carpetas dentro de su celda */
+}
+
+/* Contenedor de cada ícono de carpeta */
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: black;
+  padding: 20px;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+  height: 220px; /* Aumento de altura para dar espacio al texto adicional */
+  width: 150px;
+  cursor: pointer;
+  color: white;
+  text-align: center;
+  box-sizing: border-box; /* Asegura que los padding no afecten el tamaño del contenedor */
+}
+
+.image-container:hover {
+  background-color: #444; /* Cambio de color cuando se pasa el ratón */
+}
+
+.image-container i {
+  font-size: 40px;
+  margin-bottom: 10px; /* Espacio entre el icono y la fecha */
+}
+
+.image-container p {
+  margin-top: 10px; /* Espacio entre la imagen y la fecha */
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* Estilo para el texto que debe estar arriba */
+.text-top {
+  margin-top: 10px; /* Ajuste para que esté cerca de la parte superior */
+  font-size: 16px;  /* Tamaño del texto */
+  font-weight: 600;
+}
+
+/* Estilo del modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center; /* Centrado horizontal */
+  align-items: center;     /* Centrado vertical */
+  z-index: 1000;
+}
+
+/* Estilo del modal */
+.modal img {
+  object-fit: contain; /* Mantiene la proporción de la imagen sin distorsionarla */
+  border: 5px solid white;
+  border-radius: 10px;
+  display: block; /* Asegura que la imagen sea un bloque para que el centrado funcione correctamente */
+  margin: 0 auto;  /* Centrado horizontal adicional */
+}
+
+/* Tamaño de imagen específico para cada modal */
+#img2 img {
+  max-width: 50%;  /* Tamaño personalizado para la imagen en el primer modal */
+  max-height: 50%; /* Ajuste de la altura también */
+}
+
+#img3 img {
+  max-width: 60%;  /* Tamaño personalizado para la imagen en el segundo modal */
+  max-height: 80%; /* Ajuste de la altura también */
+}
+
+/* Mostrar el modal cuando se hace clic */
+.modal:target {
+  display: flex;
+}
+
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 768px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr); /* Asegura 2 carpetas por fila en dispositivos móviles */
+    width: 100%; /* Asegura que ocupe toda la anchura disponible */
+  }
+
+ /* Tamaño de imagen específico para cada modal */
+ #img2 img {
+   max-width: 90%;  /* Tamaño personalizado para la imagen en el primer modal */
+   max-height: 600%; /* Ajuste de la altura también */
+ }
+  #img3 img {
+    width: 800%;       /* Estira el ancho al 100% */
+    height: 800%;      /* Estira la altura al 100% */
+  }
+
+  .image-container i {
+    font-size: 35px; /* Reduce el tamaño del icono para pantallas pequeñas */
+  }
+
+  h1 {
+    margin-top: -540px; /* Mueve el título hacia arriba solo en dispositivos móviles */
+  }
+
+  .text-top {
+    margin-top: 0px; /* Mueve el texto aún más hacia arriba */
+    font-size: 14px; /* Ajuste del tamaño de texto en pantallas pequeñas */
+  }
+}
