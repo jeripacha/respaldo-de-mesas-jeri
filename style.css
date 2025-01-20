@@ -117,22 +117,24 @@ h1 {
   display: flex;
 }
 
-
 /* Media query para pantallas pequeñas */
-@media (max-width: 768px) {
+@media (max-width: 468px) {
   .gallery {
     grid-template-columns: repeat(2, 1fr); /* Asegura 2 carpetas por fila en dispositivos móviles */
     width: 100%; /* Asegura que ocupe toda la anchura disponible */
   }
 
- /* Tamaño de imagen específico para cada modal */
- #img2 img {
-   max-width: 90%;  /* Tamaño personalizado para la imagen en el primer modal */
-   max-height: 600%; /* Ajuste de la altura también */
- }
-  #img3 img {
-    width: 800%;       /* Estira el ancho al 100% */
-    height: 800%;      /* Estira la altura al 100% */
+  /* Tamaño de imagen específico para cada modal */
+  #img2 img {
+    max-width: 90%;  /* Ajuste del ancho de la imagen */
+    max-height: 600%; /* Ajuste de la altura para no exceder el tamaño de la pantalla */
+  }
+
+  #img3 {
+      margin: 0;
+      padding: 0;
+      width: 159%; /* Asegura que el contenedor ocupe toda la pantalla */
+      height: 100%; /* Ajusta su altura al 100% del viewport */
   }
 
   .image-container i {
@@ -140,11 +142,11 @@ h1 {
   }
 
   h1 {
-    margin-top: -540px; /* Mueve el título hacia arriba solo en dispositivos móviles */
+    margin-top: -30px; /* Ajuste del título para dispositivos móviles */
   }
 
   .text-top {
-    margin-top: 0px; /* Mueve el texto aún más hacia arriba */
+    margin-top: 0px; /* Ajuste de margen del texto */
     font-size: 14px; /* Ajuste del tamaño de texto en pantallas pequeñas */
   }
 }
