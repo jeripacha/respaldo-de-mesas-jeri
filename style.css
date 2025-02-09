@@ -20,12 +20,14 @@ body {
   color: white;
 }
 
+/* Título centrado, ajustando el margen para evitar que se suba demasiado */
 h1 {
   text-align: center;
   font-family: 'Walter Turncoat', sans-serif;
   margin-bottom: 30px;
-  margin-top: -400px; /* Subir el título moviéndolo hacia arriba */
-  color: white; /* Título en color blanco */
+  margin-top: 760px; /* Ajustado para evitar que se suba demasiado */
+  color: #04c38a; /* Título en color blanco */
+  position: relative;
 }
 
 /* Galería de imágenes con carpetas */
@@ -36,6 +38,9 @@ h1 {
   width: 80%;
   margin-top: 20px;
   justify-items: center; /* Centra las carpetas dentro de su celda */
+  overflow: hidden; /* Evita desbordamientos */
+  max-height: 100vh; /* Evita que se desborde de la ventana */
+  flex-wrap: wrap; /* Permite que las carpetas se ajusten si hay demasiado contenido */
 }
 
 /* Contenedor de cada ícono de carpeta */
@@ -49,26 +54,27 @@ h1 {
   border-radius: 10px;
   transition: background-color 0.3s;
   height: 220px; /* Aumento de altura para dar espacio al texto adicional */
-  width: 150px;
+  width: 160px;
   cursor: pointer;
   color: white;
   text-align: center;
   box-sizing: border-box; /* Asegura que los padding no afecten el tamaño del contenedor */
+  border: 2px solid #fff; /* Borde blanco para cada carpeta */
+  margin: 10px; /* Espacio entre cada carpeta */
+  overflow: hidden; /* Evita que el texto se desborde fuera de las carpetas */
 }
 
+/* Evita que el texto largo empuje el contenedor */
+.image-container p {
+  overflow: hidden; /* Evita que el texto largo se desborde */
+  text-overflow: ellipsis; /* Muestra "..." si el texto es muy largo */
+  white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+}
+
+/* Cambio de color al pasar el ratón */
 .image-container:hover {
   background-color: #444; /* Cambio de color cuando se pasa el ratón */
-}
-
-.image-container i {
-  font-size: 40px;
-  margin-bottom: 10px; /* Espacio entre el icono y la fecha */
-}
-
-.image-container p {
-  margin-top: 10px; /* Espacio entre la imagen y la fecha */
-  font-size: 14px;
-  font-weight: 400;
+  border-color: #ff9900; /* Borde de color naranja cuando se pasa el ratón */
 }
 
 /* Estilo para el texto que debe estar arriba */
@@ -76,6 +82,7 @@ h1 {
   margin-top: 10px; /* Ajuste para que esté cerca de la parte superior */
   font-size: 16px;  /* Tamaño del texto */
   font-weight: 600;
+  white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
 }
 
 /* Estilo del modal */
@@ -202,3 +209,4 @@ h1 {
     font-size: 14px; /* Ajuste del tamaño de texto en pantallas pequeñas */
   }
 }
+
