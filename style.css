@@ -102,6 +102,20 @@ h1 {
 }
 
 /* Tamaño de imagen específico para cada modal */
+#img2 img,
+#img3 img,
+#img4 img,
+#img5 img,
+#img6 img,
+#img7 img {
+  object-fit: contain; /* Mantiene la proporción de la imagen sin distorsionarla */
+  border: 5px solid white;
+  border-radius: 10px;
+  display: block; /* Asegura que la imagen sea un bloque para que el centrado funcione correctamente */
+  margin: 0 auto;  /* Centrado horizontal adicional */
+}
+
+/* Tamaño de imagen específico para cada modal */
 #img2 img {
   max-width: 50%;  /* Tamaño personalizado para la imagen en el primer modal */
   max-height: 50%; /* Ajuste de la altura también */
@@ -109,6 +123,26 @@ h1 {
 
 #img3 img {
   max-width: 60%;  /* Tamaño personalizado para la imagen en el segundo modal */
+  max-height: 80%; /* Ajuste de la altura también */
+}
+
+#img4 img {
+  max-width: 50%;  /* Tamaño personalizado para la imagen en el cuarto modal */
+  max-height: 50%; /* Ajuste de la altura también */
+}
+
+#img5 img {
+  max-width: 60%;  /* Tamaño personalizado para la imagen en el quinto modal */
+  max-height: 80%; /* Ajuste de la altura también */
+}
+
+#img6 img {
+  max-width: 50%;  /* Tamaño personalizado para la imagen en el sexto modal */
+  max-height: 50%; /* Ajuste de la altura también */
+}
+
+#img7 img {
+  max-width: 60%;  /* Tamaño personalizado para la imagen en el séptimo modal */
   max-height: 80%; /* Ajuste de la altura también */
 }
 
@@ -130,11 +164,29 @@ h1 {
     max-height: 600%; /* Ajuste de la altura para no exceder el tamaño de la pantalla */
   }
 
-  #img3 {
-      margin: 0;
-      padding: 0;
-      width: 159%; /* Asegura que el contenedor ocupe toda la pantalla */
-      height: 100%; /* Ajusta su altura al 100% del viewport */
+  #img3 img {
+    max-width: 90%;  /* Ajuste del ancho de la imagen */
+    max-height: 600%; /* Ajuste de la altura para no exceder el tamaño de la pantalla */
+  }
+
+  #img4 img {
+    max-width: 90%;  /* Ajuste del ancho de la imagen */
+    max-height: 600%; /* Ajuste de la altura para no exceder el tamaño de la pantalla */
+  }
+
+  #img5 img {
+    max-width: 90%;  /* Ajuste del ancho de la imagen */
+    max-height: 600%; /* Ajuste de la altura para no exceder el tamaño de la pantalla */
+  }
+
+  #img6 img {
+    max-width: 90%;  /* Ajuste del ancho de la imagen */
+    max-height: 600%; /* Ajuste de la altura para no exceder el tamaño de la pantalla */
+  }
+
+  #img7 img {
+    max-width: 90%;  /* Ajuste del ancho de la imagen */
+    max-height: 600%; /* Ajuste de la altura para no exceder el tamaño de la pantalla */
   }
 
   .image-container i {
