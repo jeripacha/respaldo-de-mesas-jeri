@@ -1,212 +1,444 @@
-body {
-  font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+body {  
+  font-family: 'Walter Turncoat', cursive;
+  background-color: #111;
   margin: 0;
-  padding: 20px;
-  background-color: black;
-  height: 100vh; /* Asegura que el contenido ocupe toda la altura de la pantalla */
-  box-sizing: border-box; /* Asegura que el borde no afecte el tamaño */
+  padding: 0;
+  color: white;
+  font-weight: bold; 
 }
 
-/* Estilo para el texto que debe estar abajo del título */
-.text-bottom {
-  text-align: center; /* Centrar el texto */
-  font-size: 18px; /* Ajustar tamaño de texto */
-  font-weight: 600;
-  margin-top: -20px; /* Espacio entre el título y este texto */
+header {
+  text-align: center;
+  background-color: #222;
+  padding: 20px;
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #ff00ff; /* Color neón fucsia */
+  text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+}
+
+/* Estilo para el contenedor de los cuadrados */
+.squares-container {
+  display: flex;
+  justify-content: center;  /* Asegura que los cuadros se centren horizontalmente */
+  align-items: center;  /* Asegura que los cuadros se centren verticalmente */
+  gap: 20px;  /* Espacio entre los cuadros */
+  margin-top: 40px;
+  flex-wrap: wrap;  /* Permite que los cuadrados se ajusten en nuevas filas si es necesario */
+}
+
+/* Media query para pantallas aún más pequeñas */
+@media (max-width: 480px) {
+  .square {
+    width: 170px !important;  /* Aumenta un poco más para pantallas aún más pequeñas */
+    height: 200px !important;
+  }
+}
+.square {
+  position: relative;
+  width: 280px;
+  height: 180px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  background-color: #333;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+/* Imagen centrada dentro del cuadrado */
+.square img {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%; /* Puedes ajustar este porcentaje para hacerla más pequeña */
+    height: auto; /* Mantiene la proporción de la imagen */
+    object-fit: contain; /* Hace que la imagen se vea completa sin recortes */
+}
+
+
+.square:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(255, 0, 255, 1), 0 0 40px rgba(0, 255, 255, 1);
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 0 0 15px 15px;
+}
+/* Imagen centrada dentro de los cuadrados */
+.square-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%; /* Puedes ajustar este valor para hacer la imagen más pequeña o grande */
+    height: auto;
+}
+
+.image-name {
+  position: absolute;
+  bottom: 30px;
+  left: 15px;
+  color: #ff00ff;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+.image-date {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  color: #ff00ff;
+  font-size: 14px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  background: linear-gradient(to right, #893438, #896e24, #896e24, #893438); /* Degradado */
+  color: white; /* Color de texto blanco */
+  padding: 8px; /* Espaciado interno */
+  width: 120%; /* Cambiar el ancho a un valor relativo */
+  max-width: 1521px; /* Ancho máximo del modal */
+  border-radius: 3px; /* Bordes redondeados */
+  border: 2px solid white; /* Borde blanco */
+  text-align: left; /* Alinear texto a la izquierda (mejor para la tabla) */
+  max-height: 623px; /* Establece una altura máxima */
+  overflow-y: auto; /* Permite el desplazamiento vertical dentro del modal */
+  padding-right: 15px; /* Espacio extra para la barra de desplazamiento */
+  position: relative; /* Para controlar la posición del contenido */
+  top: 7px; /* Ajusta el valor para mover el modal hacia arriba */
+  display: flex; /* Usamos Flexbox para centrar la tabla */
+  flex-direction: column; /* Alinea el contenido verticalmente */
+  align-items: center; /* Centra el contenido en el eje horizontal */
+}
+
+/* Estilo del Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1115px; /* Se mantiene el ancho para pantallas grandes */
+  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  opacity: 0; /* Inicialmente invisible */
+  transform: translateY(-30px); /* Desplazado hacia arriba inicialmente */
+  visibility: hidden; /* Inicialmente invisible */
+  transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s 0.5s; /* Transiciones a opacidad, movimiento y visibilidad */
+}
+
+.modal.open {
+  visibility: visible; /* Hace visible el modal */
+  opacity: 1; /* Hace visible el modal */
+  transform: translateY(0); /* Devuelve el modal a su posición original */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Transiciones cuando el modal está abierto */
+}
+
+/* Media Queries para pantallas pequeñas */
+
+
+@media (max-width: 480px) {
+  .modal-content {
+    width: 60%; /* Más pequeño aún para móviles muy pequeños */
+    max-width: 639px; /* Asegura que el modal no sea más grande que el 95% del ancho de la pantalla */
+    max-height: 90vh; /* Limita la altura para evitar que sea demasiado grande */
+    padding: 10px; /* Ajustamos el padding para no ocupar demasiado espacio */
+  }
+
+  .modal {
+    width: 99vw; /* El modal ocupará el 100% del ancho */
+    height: 100vh; /* El modal ocupará el 100% de la altura */
+  }
+}
+
+
+/* Estilos de las tarjetas */
+.card-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.card {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    text-align: center;
+}
+
+.card-title {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.card-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1a73e8;
+}
+
+/* Estilos de porcentaje */
+.porcentaje-container {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.porcentaje-area {
+    display: flex;
+    justify-content: space-around;
+}
+
+.area {
+    text-align: center;
+}
+
+.porcentaje-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: conic-gradient(#4caf50 var(--porcentaje), #e0e0e0 0);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    position: relative;
+}
+
+.area p {
+    font-size: 14px;
+}
+
+/* Para animar el porcentaje */
+.porcentaje-circle span {
+    position: absolute;
+    font-size: 16px;
+    color: black;
+    z-index: 1;
+}
+
+/* Estilos de tabla */
+.table {
+  color: white;
+  width: 85%;
+  border-collapse: collapse;
+  margin: 10px auto;
+  background-color: transparent;
+  border-radius: 19px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  border: 5px solid white;
+  padding: 8px;
+  background-color: transparent;
   color: white;
 }
 
-/* Título centrado, ajustando el margen para evitar que se suba demasiado */
-h1 {
-  text-align: center;
-  font-family: 'Walter Turncoat', sans-serif;
-  margin-bottom: 30px;
-  margin-top: 760px; /* Ajustado para evitar que se suba demasiado */
-  color: #04c38a; /* Título en color blanco */
-  position: relative;
+.table th {
+  background-color: transparent;
+  color: white;
 }
 
-/* Galería de imágenes con carpetas */
-.gallery {
+.table th:nth-child(1) {
+  text-align: left;
+}
+
+.table th:nth-child(2) {
+  text-align: right;
+}
+
+.table td:nth-child(1) {
+  text-align: left;
+}
+
+.table td:nth-child(2) {
+  text-align: right;
+}
+
+
+
+/* Estilo para el botón de cierre */
+.modal .close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+  color: #ff0066;
+  cursor: pointer;
+}
+
+
+/* Estilo responsive */
+@media (max-width: 768px) {
+  header {
+      font-size: 1.5rem;
+  }
+
+  .squares-container {
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin: 20px;
+  }
+
+  .square {
+      width: 120px;
+      height: 120px;
+      font-size: 1.2rem;
+  }
+
+  .modal-content {
+      width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .square {
+      width: 100px;
+      height: 100px;
+      font-size: 1rem;
+  }
+
+  .modal-content {
+      width: 95%;
+  }
+}
+
+.card-container {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Dos carpetas por fila */
-  gap: 20px;
-  width: 80%;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  /* Espaciado entre tarjetas */
   margin-top: 20px;
-  justify-items: center; /* Centra las carpetas dentro de su celda */
-  overflow: hidden; /* Evita desbordamientos */
-  max-height: 100vh; /* Evita que se desborde de la ventana */
-  flex-wrap: wrap; /* Permite que las carpetas se ajusten si hay demasiado contenido */
 }
 
-/* Contenedor de cada ícono de carpeta */
-.image-container {
+.card {
+  background: linear-gradient(135deg, white 50%, #d7d1d1 50%);
+  border-radius: 12px;
+  /* Bordes más suaves */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  padding: 18px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  /* Elevación al pasar el cursor */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+}
+
+.otros-montos-list {
+  display: none;
+  overflow: hidden;
+  transition: max-height 1.3s ease;
+  max-height: 0;
+
+}
+
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  /* Organizar el contenido verticalmente */
+  align-items: flex-start;
+  /* Alinear el contenido al inicio */
+
+}
+
+.card-title {
+  font-weight: bold;
+  /* Negrita para el título */
+  font-size: 1.2em;
+  /* Tamaño de fuente más grande */
+  color: #333;
+  /* Color del texto */
+}
+
+.card-value {
+  font-size: 1.5em;
+  /* Tamaño de fuente más grande para el valor */
+  color: #007bff;
+  /* Color del texto para el valor */
+  margin-top: 5px;
+  /* Espaciado superior */
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap; /* Permite que las tarjetas se acomoden en varias filas si es necesario */
+  gap: 10px; /* Espacio entre las tarjetas */
+  justify-content: space-evenly; /* Distribuye las tarjetas de manera equitativa */
+}
+
+.porcentaje-container {
+
+  border-radius: 20px;
+  /* Bordes redondeados */
+  padding: 20px;
+  /* Espaciado interno */
+  margin: 20px 0;
+  /* Margen superior e inferior */
+
+}
+
+.porcentaje-area {
+  display: grid;
+  grid-template-columns: repeat(2, 800fr);
+  /* Crear 4 columnas de igual tamaño */
+  gap: 20px;
+  /* Aumento el espacio entre los elementos */
+  justify-items: center;
+  /* Centra los elementos dentro de cada celda */
+  align-items: center;
+  /* Centra los elementos verticalmente */
+}
+
+
+.porcentaje-circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 7px solid #2f1313;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  background-color: black;
-  padding: 20px;
-  border-radius: 10px;
-  transition: background-color 0.3s;
-  height: 220px; /* Aumento de altura para dar espacio al texto adicional */
-  width: 160px;
-  cursor: pointer;
-  color: white;
-  text-align: center;
-  box-sizing: border-box; /* Asegura que los padding no afecten el tamaño del contenedor */
-  border: 2px solid #fff; /* Borde blanco para cada carpeta */
-  margin: 10px; /* Espacio entre cada carpeta */
-  overflow: hidden; /* Evita que el texto se desborde fuera de las carpetas */
+  font-size: 1.2em;
+  color: #333;
+  flex-shrink: 0; /* Fija el tamaño del círculo */
+  min-width: 50px;
+  min-height: 50px;
 }
 
-/* Evita que el texto largo empuje el contenedor */
-.image-container p {
-  overflow: hidden; /* Evita que el texto largo se desborde */
-  text-overflow: ellipsis; /* Muestra "..." si el texto es muy largo */
-  white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
-}
-
-/* Cambio de color al pasar el ratón */
-.image-container:hover {
-  background-color: #444; /* Cambio de color cuando se pasa el ratón */
-  border-color: #ff9900; /* Borde de color naranja cuando se pasa el ratón */
-}
-
-/* Estilo para el texto que debe estar arriba */
-.text-top {
-  margin-top: 10px; /* Ajuste para que esté cerca de la parte superior */
-  font-size: 16px;  /* Tamaño del texto */
-  font-weight: 600;
-  white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
-}
-
-/* Estilo del modal */
-.modal {
-  display: none;
-  position: fixed;
+.porcentaje-circle::before {
+  content: '';
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  justify-content: center; /* Centrado horizontal */
-  align-items: center;     /* Centrado vertical */
-  z-index: 1000;
+  border-radius: 50%;
+  clip-path: inset(0 50% auto 0);
+  background: conic-gradient(#edebe8 var(--porcentaje),
+      /* Color ocupado */
+      #0a0a0a var(--porcentaje) 100%
+      /* Color no ocupado */
+    );
 }
-
-/* Estilo del modal */
-.modal img {
-  object-fit: contain; /* Mantiene la proporción de la imagen sin distorsionarla */
-  border: 5px solid white;
-  border-radius: 10px;
-  display: block; /* Asegura que la imagen sea un bloque para que el centrado funcione correctamente */
-  margin: 0 auto;  /* Centrado horizontal adicional */
-}
-
-/* Tamaño de imagen específico para cada modal */
-#img2 img,
-#img3 img,
-#img4 img,
-#img5 img,
-#img6 img,
-#img7 img {
-  object-fit: contain; /* Mantiene la proporción de la imagen sin distorsionarla */
-  border: 5px solid white;
-  border-radius: 10px;
-  display: block; /* Asegura que la imagen sea un bloque para que el centrado funcione correctamente */
-  margin: 0 auto;  /* Centrado horizontal adicional */
-}
-
-/* Tamaño de imagen específico para cada modal */
-#img2 img {
-  max-width: 50%;  /* Tamaño personalizado para la imagen en el primer modal */
-  max-height: 50%; /* Ajuste de la altura también */
-}
-
-#img3 img {
-  max-width: 60%;  /* Tamaño personalizado para la imagen en el segundo modal */
-  max-height: 80%; /* Ajuste de la altura también */
-}
-
-#img4 img {
-  max-width: 50%;  /* Tamaño personalizado para la imagen en el cuarto modal */
-  max-height: 50%; /* Ajuste de la altura también */
-}
-
-#img5 img {
-  max-width: 60%;  /* Tamaño personalizado para la imagen en el quinto modal */
-  max-height: 80%; /* Ajuste de la altura también */
-}
-
-#img6 img {
-  max-width: 50%;  /* Tamaño personalizado para la imagen en el sexto modal */
-  max-height: 50%; /* Ajuste de la altura también */
-}
-
-#img7 img {
-  max-width: 60%;  /* Tamaño personalizado para la imagen en el séptimo modal */
-  max-height: 80%; /* Ajuste de la altura también */
-}
-
-/* Mostrar el modal cuando se hace clic */
-.modal:target {
-  display: flex;
-}
-
-/* Media query para pantallas pequeñas */
-@media (max-width: 468px) {
-  .gallery {
-    grid-template-columns: repeat(2, 1fr); /* Asegura 2 carpetas por fila en dispositivos móviles */
-    width: 100%; /* Asegura que ocupe toda la anchura disponible */
-  }
-
-  /* Tamaño de imagen específico para cada modal */
-  #img2 img {
-    max-width: 90%;  /* Ajuste del ancho de la imagen */
-    max-height: 600%; /* Ajuste de la altura para no exceder el tamaño de la pantalla */
-  }
-
-  #img3 img {
-    max-width: 90%;  /* Ajuste del ancho de la imagen */
-    max-height: 600%; /* Ajuste de la altura para no exceder el tamaño de la pantalla */
-  }
-
-  #img4 img {
-    max-width: 90%;  /* Ajuste del ancho de la imagen */
-    max-height: 600%; /* Ajuste de la altura para no exceder el tamaño de la pantalla */
-  }
-
-  #img5 img {
-    max-width: 90%;  /* Ajuste del ancho de la imagen */
-    max-height: 600%; /* Ajuste de la altura para no exceder el tamaño de la pantalla */
-  }
-
-  #img6 img {
-    max-width: 90%;  /* Ajuste del ancho de la imagen */
-    max-height: 600%; /* Ajuste de la altura para no exceder el tamaño de la pantalla */
-  }
-
-  #img7 img {
-    max-width: 90%;  /* Ajuste del ancho de la imagen */
-    max-height: 600%; /* Ajuste de la altura para no exceder el tamaño de la pantalla */
-  }
-
-  .image-container i {
-    font-size: 35px; /* Reduce el tamaño del icono para pantallas pequeñas */
-  }
-
-  h1 {
-    margin-top: -30px; /* Ajuste del título para dispositivos móviles */
-  }
-
-  .text-top {
-    margin-top: 0px; /* Ajuste de margen del texto */
-    font-size: 14px; /* Ajuste del tamaño de texto en pantallas pequeñas */
-  }
-}
-

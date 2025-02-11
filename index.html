@@ -3,74 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PACHA DISCOTECA</title>
+    <title>Respaldo Mesas Pacha 2025</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Walter+Turncoat&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <style>
-        /* Añadir este estilo para quitar el subrayado */
-        p {
-            text-decoration: none; /* Quita el subrayado del texto */
-        }
-    </style>
 </head>
-    <body>
-        <h1>Respaldos de Mesas</h1>
-         <p class="text-bottom">PACHA</p> 
-         <div class="gallery">
-            <a href="#img2" class="image-container">
-                <i class="fas fa-folder"></i>
-                <p>25/01/2025</p> 
-                <p class="text-top">Respaldo Mesas</p>
-            </a>
-            <a href="#img3" class="image-container">
-                <i class="fas fa-folder"></i>
-                <p>25/01/2025</p> 
-                <p class="text-top">Ganancias Netas</p>
-            </a>
-            <a href="#img4" class="image-container">
-                <i class="fas fa-folder"></i>
-                <p>01/02/2025 PRECAS</p> 
-                <p class="text-top">Respaldo Mesas</p>
-            </a>
-            <a href="#img5" class="image-container">
-                <i class="fas fa-folder"></i>
-                <p>01/02/2025 PRECAS</p> 
-                <p class="text-top">Ganancias Netas</p>
-            </a>
-            <a href="#img6" class="image-container">
-                <i class="fas fa-folder"></i>
-                <p>08/02/2025 PRECAS</p> 
-                <p class="text-top">Respaldo Mesas</p>
-                
-            </a>
-            <a href="#img7" class="image-container">
-                <i class="fas fa-folder"></i>
-                <p>08/02/2025 PRECAS</p> 
-                <p class="text-top">Ganancias Netas</p>
-                
-            </a>
-        </div>
+<body>
 
-      <div class="modal" id="img2">
-            <a href="#"><img src="WhatsApp Image 2025-01-19 at 20.59.37 (2).jpeg" alt="Imagen 2" id="img2"></a>
-        </div>
-        <div class="modal" id="img3">
-            <a href="#"><img src="WhatsApp Image 2025-01-19 at 20.59.37 (1) (1).jpeg" alt="Imagen 3" id="img3"></a>
-        </div>
-        <div class="modal" id="img4">
-            <a href="#"><img src="WhatsApp Image 2025-02-09 at 14.36.14.jpeg" alt="Imagen 4" id="img4"></a> 
-        </div>
-        <div class="modal" id="img5">
-            <a href="#"><img src="WhatsApp Image 2025-02-09 at 14.36.13.jpeg" alt="Imagen 5" id="img5"></a> 
-        </div>
-        <div class="modal" id="img6">
-            <a href="#"><img src="WhatsApp Image 2025-02-09 at 14.44.34.jpeg" alt="Imagen 6" id="img6"></a> 
-        </div>
-        <div class="modal" id="img7">
-            <a href="#"><img src="WhatsApp Image 2025-02-09 at 14.44.34 (1).jpeg" alt="Imagen 7" id="img7"></a> 
-        </div>
+    <header>
+        Respaldo Mesas Pacha 2025
+    </header>
 
-    </body>
+    <!-- Contenedor de los cuadrados -->
+    <div class="squares-container">
+        <div class="square" onclick="openModal('cuenta 1')">
+            <img class="square-image" src="WhatsApp Image 2025-01-09 at 20.28.26 (1).png" alt="Imagen 1">
+            <div class="overlay">
+                <div class="image-name">MESAS </div>
+                <div class="image-date">8 Febrero 2025</div>
+            </div>
+        </div>
+        <div class="square" onclick="openModal('informacion 2')">
+            <img class="square-image" src="WhatsApp Image 2025-01-09 at 20.28.26 (1).png" alt="Imagen 2">
+            <div class="overlay">
+                <div class="image-name">GANACIAS</div>
+                <div class="image-date">8 Febrero 2025</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title">Resumen de Cuentas</h2>
+            <div id="modal-text">
+                <!-- Aquí se cargará el contenido dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
 </html>
+
+

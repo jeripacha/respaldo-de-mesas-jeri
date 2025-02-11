@@ -1,457 +1,478 @@
-// D
-  let containerStyle = `
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
-      <style>
-        /* Cuando la pantalla es pequeña (menos de 768px), las tablas se apilan una debajo de la otra y se hacen más anchas */
-        @media (max-width: 768px) {
-          div {
-            grid-template-columns: 1fr !important; /* Las tablas se apilan */
-          }
+// Función para abrir el modal
+function openModal(info) {
+    var modal = document.getElementById('modal');
+    var modalText = document.getElementById('modal-text');
+    var modalTitle = document.getElementById('modal-title');  // Título del modal
 
-          .table {
-            width: 100% !important; /* Aumenta el ancho de la tabla */
-            margin: 0 auto; /* Centra la tabla */
-          }
-        }
-      </style>
-  `;
+    modal.style.display = "block";
+    // Definir la variable 'porcentajes' con valores inventados
+    const porcentajes = {
+        pacha: 33.33,
+        parrales: 66.67,
+        lounge: 18.18,
+        cholet: 0.00,
+        camel: 33.33,
+        extras: 0.00,
+        Vip: 0.00
+    };
 
+    if (info === 'cuenta 1') {
+        modalTitle.innerHTML = "Resumen de Cuentas"; // Título para "MESAS"
+        modalText.innerHTML = `
+            <div style="display: flex; justify-content: center;">
+                <table class="table" style="width: 830px;">
+                    <thead>
+                        <tr>
+                            <th>Cuenta</th>
+                            <th>Monto Depositado (bs)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ignacio Aguilar (150*****327)</td>
+                            <td>13,880 bs</td>
+                        </tr>
+                        <tr>
+                            <td>Mama (N/A)</td>
+                            <td>1,680 bs</td>
+                        </tr>
+                        <tr style="font-weight: bold; color: black;">
+                            <td>Total:</td>
+                            <td>15,560 bs</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-  let combosTable = `<div><h3>COMBOS</h3>
-    <div style="display: flex; justify-content: center;">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Combo</th>
-            <th>Cantidad</th>
-          </tr>
-        </thead>
-        <tbody>`;
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-title">Mesas de 980 bs:</div>
+                        <div class="card-value">7</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-title">Mesas de 900 bs:</div>
+                        <div class="card-value">1</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-title">Mesas de 680 bs:</div>
+                        <div class="card-value">1</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-title">Mesas de 750 bs:</div>
+                        <div class="card-value">0</div>
+                    </div>
+                </div>
+                <div class="card" id="otros-montos-card">
+                    <div class="card-content">
+                        <div class="card-title">Mesas de otros montos:</div>
+                        <div class="card-value">9</div>
+                    </div>
+                    <div class="otros-montos-list" style="display: none;">
+                        <!-- Aquí se añaden los otros montos al hacer clic -->
+                    </div>
+                </div>
+            </div>
 
-  let totalCombosCount = 0;
+            <div class="porcentaje-container">
+                <h3>Porcentaje de áreas Vendidas</h3>
+                <div class="porcentaje-area">
+                    <div class="area pacha">
+                        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.pacha.toFixed(2)}%;"></div>
+                        <p>Pacha: ${porcentajes.pacha.toFixed(2)}%</p>
+                    </div>
+                    <div class="area parrales">
+                        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.parrales.toFixed(2)}%;"></div>
+                        <p>Parrales: ${porcentajes.parrales.toFixed(2)}%</p>
+                    </div>
+                    <div class="area lounge">
+                        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.lounge.toFixed(2)}%;"></div>
+                        <p>Lounge: ${porcentajes.lounge.toFixed(2)}%</p>
+                    </div>
+                    <div class="area cholet">
+                        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.cholet.toFixed(2)}%;"></div>
+                        <p>Cholet: ${porcentajes.cholet.toFixed(2)}%</p>
+                    </div>
+                    <div class="area camel">
+                        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.camel.toFixed(2)}%;"></div>
+                        <p>Camel: ${porcentajes.camel.toFixed(2)}%</p>
+                    </div>
+                    <div class="area extras">
+                        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.extras.toFixed(2)}%;"></div>
+                        <p>Extras: ${porcentajes.extras.toFixed(2)}%</p>
+                    </div>
+                    <div class="area Vip">
+                        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.Vip.toFixed(2)}%;"></div>
+                        <p>Vip: ${porcentajes.Vip.toFixed(2)}%</p>
+                    </div>
+                </div>
+            </div>
 
-  for (const [combo, count] of Object.entries(totalCombos)) {
-    combosTable += `
-        <tr>
-          <td>${combo}</td>
-          <td>${count}</td>
-        </tr>`;
-    totalCombosCount += count;
-  }
+            <!-- GANANCIAS MAMA -->
+            <!-- Contenedor para la palabra Combo y la tabla -->
+            <div style="display: flex; flex-direction: column; align-items: center;">
 
-  combosTable += `
-    <tr style="font-weight: bold; color: black;">
-      <td style="color: black;">Total:</td>
-      <td style="color: black;">${totalCombosCount}</td>
-    </tr>
-  </tbody>
-  </table>
-  </div></div>`;
+                <!-- Título "Combo" centrado -->
+                <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">
+                 GANANCIAS MAMA
+                </div>
 
+            <div style="display: flex; justify-content: center; margin-top: 20px;">
+                <table class="table" style="width: 830px;">
+                    <thead>
+                        <tr>
+                            <th>Mesa</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>parrales 5</td>
+                            <td>400</td>
+                        </tr>
+                        <tr>
+                            <td>parrales 7</td>
+                            <td>400</td>
+                        </tr>
+                        <tr style="font-weight: bold; color: black;">
+                            <td>Depositar a MAMA:</td>
+                            <td>800 bs</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+<!-- Contenedor para la palabra Combo y la tabla -->
+<div style="display: flex; flex-direction: column; align-items: center;">
 
-  // Obtener los detalles extraídos
-  const { totalExtraido, detallesExtraidos } = calcularExtraidoPachamama();
-  // Para la tabla de Pachamama
-  let pachamamaTable = `<div><h3 style="color: white;">GANANCIAS MAMA</h3>
-    <div style="display: flex; justify-content: center;">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Mesa</th>
-            <th>Cantidad</th>
-          </tr>
-        </thead>
-        <tbody>`;
-
-  detallesExtraidos.forEach(detalle => {
-    pachamamaTable += `
-          <tr>
-            <td>${detalle.mesa}</td>
-            <td>${detalle.cantidadExtraida}</td>
-          </tr>`;
-  });
-
-  pachamamaTable += `
-          <tr style="font-weight: bold; color: white;">
-          <td style="color: black;">Depositar a MAMA:</td>
-          <td style="color: black;">${totalExtraido} bs</td>
-          </tr>
-        </tbody>
-      </table>
-    </div></div>`;
-  
-  // Llamada a la función calcularDepositoMama antes de usar 'detallesMama'
-  const { totalDepositoMama, detallesMama } = calcularDepositoMama();
-
-  // Generación de la tabla de MAMA
-  let mamaTable = `<div><h3 style="color: white;">DEPOSITOS QUE MAMA DEBE REALIZAR A PACHA</h3>
-      <div style="display: flex; justify-content: center;">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Mesa</th>
-              <th>Cantidad Extraída</th>
-            </tr>
-          </thead>
-          <tbody>`;
-
-  detallesMama.forEach(detalle => {
-    mamaTable += `
-          <tr>
-            <td>${detalle.mesa}</td>
-            <td>${detalle.cantidadExtraida}</td>
-          </tr>`;
-  });
-
-  mamaTable += `
-          <tr style="font-weight: bold; color: white;">
-            <td style="color: black;">Total que deben depositar a PACHA:</td>
-            <td style="color: black;">${totalDepositoMama} bs</td>
-          </tr>
-        </tbody>
-      </table>
-    </div></div>`;
-
-
-  let drinksTable = `<div><h3>BEBIDAS </h3>
-    <div style="display: flex; justify-content: center;">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Bebida</th>
-            <th>Cantidad</th>
-          </tr>
-        </thead>
-        <tbody>`;
-
-  let totalDrinksCount = 0;
-
-  for (const [drink, count] of Object.entries(totalDrinks)) {
-    drinksTable += `
-          <tr>
-            <td>${drink}</td>
-            <td>${count}</td>
-          </tr>`;
-    totalDrinksCount += count;
-  }
-
-  drinksTable += `
-          <tr style="font-weight: bold; color: white;">
-             <td style="color: black;">Total:</td>
-           <td style="color: black;">${totalDrinksCount}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div></div>`;
-
-
-
-  // Agregamos todas las tablas al contenedor
-  totalContainer.innerHTML += containerStyle + combosTable + pachamamaTable + mamaTable + drinksTable + '</div>';
-
-
-
-
-
-  let count900 = 0;
-  let count980 = 0;
-  let count680 = 0; // Nueva variable para contar mesas de 680 bs
-  let count750 = 0; // Nueva variable para contar mesas de 750 bs
-  let countOthers = 0;
-
-  const otrosMontos = []; // Para almacenar los montos de otras mesas
-
-  [...areas.pacha, ...areas.parrales, ...areas.lounge, ...areas.cholet, ...areas.camel, ...areas.extras, ...areas.Vip].forEach(sticker => {
-    const quantity = Number(sticker.quantity);
-
-    if (quantity === 900) {
-      count900++;
-    } else if (quantity === 980) {
-      count980++;
-    } else if (quantity === 680) { // Condición para mesas de 680 bs
-      count680++;
-    } else if (quantity === 750) { // Condición para mesas de 750 bs
-      count750++;
-    } else if (quantity) {
-      countOthers++;
-      otrosMontos.push(`${sticker.name}: ${quantity} bs`); // Agregar a la lista de otros montos
-    }
-  });
-
-
-  const countContainer = document.getElementById("count-container");
-  countContainer.innerHTML = `
-    <div class="card-container">
-      <div class="card">
-        <div class="card-content">
-          <div class="card-title">Mesas de 980 bs:</div>
-          <div class="card-value">${count980}</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-content">
-          <div class="card-title">Mesas de 900 bs:</div>
-          <div class="card-value">${count900}</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-content">
-          <div class="card-title">Mesas de 680 bs:</div>
-          <div class="card-value">${count680}</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-content">
-          <div class="card-title">Mesas de 750 bs:</div>
-          <div class="card-value">${count750}</div>
-        </div>
-      </div>
-      <div class="card" id="otros-montos-card">
-        <div class="card-content">
-          <div class="card-title">Mesas de otros montos:</div>
-          <div class="card-value">${countOthers}</div>
-        </div>
-        <div class="otros-montos-list" style="display: none;"></div>
-      </div>
+    <!-- Título "Combo" centrado -->
+    <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">
+        DEPOSITOS QUE MAMA DEBE REALIZAR A PACHA
     </div>
-  `;
+            <!-- DEPOSITOS QUE MAMA DEBE REALIZAR A PACHA -->
+            <div style="display: flex; justify-content: center; margin-top: 20px;">
+                <table class="table" style="width: 830px;">
+                    <thead>
+                        <tr>
+                            <th>Mesa</th>
+                            <th>Cantidad Extraída</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>parrales 6</td>
+                            <td>500</td>
+                        </tr>
+                        <tr>
+                            <td>parrales 16</td>
+                            <td>500</td>
+                        </tr>
+                        <tr style="font-weight: bold; color: black;">
+                            <td>Total que deben depositar a PACHA:</td>
+                            <td>1000 bs</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+<!-- Contenedor para la palabra Combo y la tabla -->
+<div style="display: flex; flex-direction: column; align-items: center;">
 
-  const otrosMontosCard = document.getElementById("otros-montos-card");
-  const listaContainer = otrosMontosCard.querySelector(".otros-montos-list");
-
-  otrosMontosCard.addEventListener("click", () => {
-    if (listaContainer.style.display === "none" || listaContainer.style.display === "") {
-      // Asegúrate de que se muestre primero
-      listaContainer.style.display = "block";
-      listaContainer.innerHTML = otrosMontos.map(monto => `<div style="color: black; font-weight: bold; font-size: 18px;">${monto}</div>`).join('');
-
-      // Calcular y aplicar la altura máxima
-      const height = listaContainer.scrollHeight + "px";
-      listaContainer.style.maxHeight = height;
-
-      // Esperar a que se establezca la altura antes de aplicar la transición
-      setTimeout(() => {
-        listaContainer.style.maxHeight = height; // Activar la transición
-      }, 0);
-    } else {
-      // Para ocultar la lista
-      listaContainer.style.maxHeight = listaContainer.scrollHeight + "px"; // Asegurarse de que tenga la altura actual
-
-      // Luego, ajustar max-height a 0 para la transición
-      setTimeout(() => {
-        listaContainer.style.maxHeight = "0"; // Aplicar la transición a cero
-      }, 0);
-
-      // Esperar la finalización de la transición antes de ocultar completamente
-      setTimeout(() => {
-        listaContainer.style.display = "none"; // Ocultar completamente después de la transición
-      }, 900); // Debe coincidir con el tiempo de transición de CSS
-    }
-  });
-
-
-  // Mostrar porcentajes de ocupación
-  const porcentajeContainer = document.createElement("div");
-  porcentajeContainer.className = "porcentaje-container"; // Clase para CSS
-  porcentajeContainer.innerHTML = `
-    <h3>Porcentaje de áreas Ocupadas</h3>
-    <div class="porcentaje-area">
-      <div class="area pacha">
-        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.pacha.toFixed(2)}%;"></div>
-        <p>Pacha: ${porcentajes.pacha.toFixed(2)}%</p>
-      </div>
-      <div class="area parrales">
-        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.parrales.toFixed(2)}%;"></div>
-        <p>Parrales: ${porcentajes.parrales.toFixed(2)}%</p>
-      </div>
-      <div class="area lounge">
-        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.lounge.toFixed(2)}%;"></div>
-        <p>lounge: ${porcentajes.lounge.toFixed(2)}%</p>
-         </div>
-       <div class="area cholet">
-        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.cholet.toFixed(2)}%;"></div>
-        <p>Cholet: ${porcentajes.cholet.toFixed(2)}%</p>
-      </div>
-      <div class="area camel">
-        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.camel.toFixed(2)}%;"></div>
-        <p>Camel: ${porcentajes.camel.toFixed(2)}%</p>
-      </div>
-      <div class="area extras">
-        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.extras.toFixed(2)}%;"></div>
-        <p>Extras: ${porcentajes.extras.toFixed(2)}%</p>
-      </div>
-      <div class="area Vip">
-        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.Vip.toFixed(2)}%;"></div>
-        <p>Vip:     ${porcentajes.Vip.toFixed(2)}%</p>
-      </div>
+    <!-- Título "Combo" centrado -->
+    <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">
+        Combo
     </div>
-  `;
 
-  countContainer.appendChild(porcentajeContainer);
-  document.getElementById("modal").style.display = "block";
-  modal.classList.add("show");
-}
+               <div style="display: flex; justify-content: center; margin-top: 20px;">
+                   <table class="table" style="width: 830px;">
+                       <thead>
+                           <tr>
+                               <th>Combo</th>
+                               <th>Cantidad</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           <tr>
+                               <td>cumpleañero</td>
+                               <td>6</td>
+                           </tr>
+                           <tr>
+                               <td>cascabel</td>
+                               <td>4</td>
+                           </tr>
+                           <tr>
+                               <td>jager</td>
+                               <td>3</td>
+                           </tr>
+                           <tr>
+                               <td>singani</td>
+                               <td>3</td>
+                           </tr>
+                           <tr>
+                               <td>pachamama</td>
+                               <td>2</td>
+                           </tr>
+                           <tr style="font-weight: bold; color: black;">
+                               <td>Total:</td>
+                               <td>18</td>
+                           </tr>
+                       </tbody>
+                   </table>
+               </div>
+                       <!-- BEBIDAS -->
+                       <!-- Contenedor para la palabra Combo y la tabla -->
+                           <div style="display: flex; flex-direction: column; align-items: center;">
 
-// Cerrar el modal al hacer clic en la X
-document.getElementById("close-modal").addEventListener("click", () => {
-  modal.classList.remove("show");
-  modal.classList.add("hide");
-
-  modal.addEventListener('animationend', () => {
-    document.getElementById("modal").style.display = "none";
-    modal.classList.remove("hide");
-  }, { once: true });
-});
-
-// Opción 1 del menú
-document.getElementById("opcion-1").addEventListener("click", () => {
-  mostrarDetalles();
-  sideMenu.classList.remove("open");
-});
-
-// Función para mostrar/ocultar el menú
-const menuSticker = document.getElementById("top-left-sticker");
-const sideMenu = document.getElementById("side-menu");
-
-menuSticker.addEventListener("click", (event) => {
-  sideMenu.classList.toggle("open");
-  event.stopPropagation();
-});
-
-// Cerrar el menú si se hace clic fuera de él
-document.addEventListener("click", (event) => {
-  if (sideMenu.classList.contains("open") && !sideMenu.contains(event.target) && !menuSticker.contains(event.target)) {
-    sideMenu.classList.remove("open");
-  }
-});
-
-function mostrarGanancias() {
-  // Puedes cambiar los valores de Coca-Cola, Schweppes y Monster aquí
-  const cocaColaCantidad = 6;
-  const schweppesCantidad = 17;
-  const monsterCantidad = 8; // Cantidad de Monster
-  const aguaTonicaCantidad = 2; // Cantidad de Agua Tónica
-  const simbaPomeloCantidad = 1; // Cantidad de Simba Pomelo
-  const spriteCantidad = 0; // Cantidad de Sprite
-
-  const { totalQuantity, totalGanado, resultado, detalleVentas } =calcularGanancias(areas, cocaColaCantidad, schweppesCantidad, monsterCantidad, aguaTonicaCantidad, simbaPomeloCantidad, spriteCantidad);
-
-  const gananciasContainer = document.getElementById("ganancias-container");
-
-  // Limpiar contenido previo del modal
-  gananciasContainer.innerHTML = "";
-
-  // URLs de los íconos personalizados para cada tarjeta
-  const iconoQuantityUrl = "https://img.icons8.com/?size=100&id=63196&format=png&color=000000";
-  const iconoGanadoUrl = "https://img.icons8.com/?size=100&id=13013&format=png&color=000000";
-  const iconoResultadoUrl = "https://img.icons8.com/?size=100&id=AyHHKGHt204t&format=png&color=000000";
-
-  // Crear tarjetas con íconos personalizados
-  const tarjetasHtml = `
-    <div class="tarjeta">
-      <img src="${iconoQuantityUrl}" alt="Total Quantity Icon" class="icono-quantity">
-      <h3>Total De Ingresos</h3>
-      <p>${totalQuantity.toLocaleString()} Bs</p>
-    </div>
-    <div class="tarjeta">
-      <img src="${iconoGanadoUrl}" alt="Total Ganado Icon" class="icono-ganado">
-      <h3>Inversión</h3>
-      <p>${totalGanado.toLocaleString()} Bs</p>
-    </div>
-    <div class="tarjeta">
-      <img src="${iconoResultadoUrl}" alt="Ganancias Neta Icon" class="icono-resultado">
-      <h3>Ganancias Neta</h3>
-      <p>${resultado.toLocaleString()} Bs</p>
-    </div>
-  `;
-
-  gananciasContainer.innerHTML += tarjetasHtml;
-
-  // Mostrar mensaje o tabla según las cantidades
-  let detalleVentasHtml = `
-    <div class="detalle-ventas">
-      <h3>Detalles De Inversión</h3>
-      <style>
-        /* Asegurar que la tabla sea más ancha en dispositivos móviles */
-        @media (max-width: 768px) {
-          .table {
-            width: 103% !important;
-            margin: 0 auto;
-            transform: translateX(-2%); /* Desplaza 10% hacia la izquierda */
-          }
-        }
-      </style>
-  `;
-
-  if (cocaColaCantidad === 0 && schweppesCantidad === 0 && monsterCantidad === 0) {
-    detalleVentasHtml += `<p>No hay productos añadidos.</p>`;
-  } else {
-    detalleVentasHtml += `
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Producto</th>
-            <th>Cantidad Usada</th>
-            <th>Costo Invertido</th>
-          </tr>
-        </thead>
-        <tbody>
-    `;
-
-    // Filtrar las ventas donde la cantidad es mayor que 0
-    detalleVentas.forEach((venta) => {
-      if (venta.cantidad > 0) {
-        detalleVentasHtml += `
-          <tr>
-            <td>${venta.producto}</td>
-            <td>${venta.cantidad}</td>
-            <td>${venta.ingreso} Bs</td>
-          </tr>
+                               <!-- Título "Combo" centrado -->
+                               <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">
+                               BEBIDAS
+                               </div>
+                       <div style="display: flex; justify-content: center; margin-top: 20px;">
+                           <table class="table" style="width: 830px;">
+                               <thead>
+                                   <tr>
+                                       <th>Bebida</th>
+                                       <th>Cantidad</th>
+                                   </tr>
+                               </thead>
+                               <tbody>
+                                   <tr>
+                                       <td>singani parrales</td>
+                                       <td>17</td>
+                                   </tr>
+                                   <tr>
+                                       <td>flor de caña 5 años</td>
+                                       <td>6</td>
+                                   </tr>
+                                   <tr>
+                                       <td>jager</td>
+                                       <td>3</td>
+                                   </tr>
+                                   <tr>
+                                       <td>vodka</td>
+                                       <td>1</td>
+                                   </tr>
+                                   <tr>
+                                       <td>gin republica</td>
+                                       <td>1</td>
+                                   </tr>
+                                   <tr style="font-weight: bold; color: black;">
+                                       <td>Total:</td>
+                                       <td>28</td>
+                                   </tr>
+                               </tbody>
+                           </table>
+                       </div>
+                   <style>
+                           /* Media Query para pantallas pequeñas (móviles) */
+                           @media (max-width: 600px) {
+                               table {
+                                   width: 100% !important; /* Hace que la tabla ocupe todo el ancho */
+                                   table-layout: fixed; /* Ajusta las celdas para que se adapten */
+                               }
+                               th, td {
+                                   word-wrap: break-word; /* Permite que el texto largo se ajuste */
+                                   padding: 8px; /* Reduce un poco el padding para que quepa mejor */
+                               }
+                           }
+                       </style>
         `;
-      }
-    });
+        const otrosMontosCard = document.getElementById("otros-montos-card");
+        if (otrosMontosCard) {
+            const listaContainer = otrosMontosCard.querySelector(".otros-montos-list");
 
-    detalleVentasHtml += `
-        </tbody>
-      </table>
-    `;
-  }
+            otrosMontosCard.addEventListener("click", () => {
+                if (listaContainer.style.display === "none" || listaContainer.style.display === "") {
+                    // Expandir
+                    listaContainer.style.display = "block";
 
-  detalleVentasHtml += `</div>`;
+                    // Añadir más mesas extras
+                    listaContainer.innerHTML = `
+                        <div style="color: black; font-weight: bold; font-size: 18px;">IGNACIO AGUILAR: 650 bs</div>
+                        <div style="color: black; font-weight: bold; font-size: 18px;">IGNACIO AGUILAR: 800 bs</div>
+                        <div style="color: black; font-weight: bold; font-size: 18px;">IGNACIO AGUILAR: 700 bs</div>
+                        <div style="color: black; font-weight: bold; font-size: 18px;">IGNACIO AGUILAR: 1000 bs</div>
+                        <div style="color: black; font-weight: bold; font-size: 18px;">MAMA: 780 bs</div>
+                        <div style="color: black; font-weight: bold; font-size: 18px;">IGNACIO AGUILAR: 760 bs</div>
+                        <div style="color: black; font-weight: bold; font-size: 18px;">IGNACIO AGUILAR: 800 bs</div>
+                        <div style="color: black; font-weight: bold; font-size: 18px;">IGNACIO AGUILAR: 830 bs</div>
+                        <div style="color: black; font-weight: bold; font-size: 18px;">IGNACIO AGUILAR: 800 bs</div>
+                    `;
 
-  // Agregar el HTML generado al contenedor
-  gananciasContainer.innerHTML += detalleVentasHtml;
+                    // Ajustar la altura
+                    listaContainer.style.maxHeight = listaContainer.scrollHeight + "px"; // Ajustar la altura al contenido actualizado
+
+                    setTimeout(() => {
+                        listaContainer.style.transition = "max-height 0.5s ease-in-out"; // Activar la transición
+                        listaContainer.style.maxHeight = listaContainer.scrollHeight + "px"; // Establecer la nueva altura
+                    }, 0);
+                } else {
+                    // Contraer
+                    listaContainer.style.transition = "max-height 0.5s ease-in-out"; // Animación suave
+                    listaContainer.style.maxHeight = "0"; // Reducir la altura a 0
+
+                    setTimeout(() => {
+                        listaContainer.style.display = "none"; // Ocultar completamente después de la animación
+                    }, 500); // Debe coincidir con el tiempo de transición
+                }
+            });
+        }
+        } else if (info === 'informacion 2') {
+         modalTitle.innerHTML = "Total de Ingresos Netos por Ventas de Mesas"; // Título para "GANACIAS"
+            modalText.innerHTML = `
+            
+                <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin-top: 20px;">
+                    <!-- Tarjeta Total de Ingresos -->
+                    <div class="tarjeta" style="width: 250px; background-color: white; color: black; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center;">
+                        <div class="tarjeta-content">
+                            <!-- Ícono -->
+                            <div class="tarjeta-icon" style="font-size: 40px; color: #4CAF50; margin-bottom: 10px;">
+                                <i class="fa fa-dollar-sign"></i> <!-- Usando FontAwesome -->
+                            </div>
+                            <!-- Título -->
+                            <div class="tarjeta-title" style="font-size: 18px; font-weight: bold;">Total de Ingresos</div>
+                            <!-- Cantidad -->
+                            <div class="tarjeta-value" style="font-size: 22px;">13,880 bs</div>
+                        </div>
+                    </div>
+                    <!-- Tarjeta Inversión -->
+                    <div class="tarjeta" style="width: 250px; background-color: white; color: black; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center;">
+                        <div class="tarjeta-content">
+                            <!-- Ícono -->
+                            <div class="tarjeta-icon" style="font-size: 40px; color: #FF9800; margin-bottom: 10px;">
+                                <i class="fa fa-arrow-down"></i> <!-- Usando FontAwesome -->
+                            </div>
+                            <!-- Título -->
+                            <div class="tarjeta-title" style="font-size: 18px; font-weight: bold;">Inversión</div>
+                            <!-- Cantidad -->
+                            <div class="tarjeta-value" style="font-size: 22px;">2,603 bs</div>
+                        </div>
+                    </div>
+                    <!-- Tarjeta Ganancias Netas -->
+                    <div class="tarjeta" style="width: 250px; background-color: white; color: black; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center;">
+                        <div class="tarjeta-content">
+                            <!-- Ícono -->
+                            <div class="tarjeta-icon" style="font-size: 40px; color: #2196F3; margin-bottom: 10px;">
+                                <i class="fa fa-chart-line"></i> <!-- Usando FontAwesome -->
+                            </div>
+                            <!-- Título -->
+                            <div class="tarjeta-title" style="font-size: 18px; font-weight: bold;">Ganancias Netas</div>
+                            <!-- Cantidad -->
+                            <div class="tarjeta-value" style="font-size: 22px;">11,277 bs</div>
+                        </div>
+                    </div>
+                </div>
+<!-- Detalles de Inversión -->
+    <div style="display: flex; justify-content: center; margin-top: 30px;">
+        <table class="table" style="width: 830px;">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad Usada</th>
+                    <th>Costo Invertido</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Jager</td>
+                    <td>3</td>
+                    <td>456 Bs</td>
+                </tr>
+                <tr>
+                    <td>Singani Parrales</td>
+                    <td>17</td>
+                    <td>1,054 Bs</td>
+                </tr>
+                <tr>
+                    <td>Vodka</td>
+                    <td>1</td>
+                    <td>85 Bs</td>
+                </tr>
+                <tr>
+                    <td>Flor de Caña 5 años</td>
+                    <td>6</td>
+                    <td>438 Bs</td>
+                </tr>
+                <tr>
+                    <td>Gin República</td>
+                    <td>1</td>
+                    <td>120 Bs</td>
+                </tr>
+                <tr>
+                    <td>Coca-Cola</td>
+                    <td>6</td>
+                    <td>54 Bs</td>
+                </tr>
+                <tr>
+                    <td>Schweppes Ginger Ale 1.5L</td>
+                    <td>17</td>
+                    <td>255 Bs</td>
+                </tr>
+                <tr>
+                    <td>Monster</td>
+                    <td>8</td>
+                    <td>120 Bs</td>
+                </tr>
+                <tr>
+                    <td>Agua Tónica</td>
+                    <td>2</td>
+                    <td>12 Bs</td>
+                </tr>
+                <tr>
+                    <td>Simba Pomelo</td>
+                    <td>1</td>
+                    <td>9 Bs</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+               <style>
+                   /* Estilo para pantallas pequeñas (móviles) */
+                   @media (max-width: 768px) {
+                       .tarjeta {
+                           width: 100%; /* Hacer las tarjetas ocupar todo el ancho disponible */
+                           margin-bottom: 20px; /* Espacio entre tarjetas */
+                       }
+
+                       /* Asegurarse de que el contenedor de las tarjetas se ajuste bien */
+                       .tarjeta-content {
+                           padding: 15px;
+                       }
+
+                       table {
+                           width: 100% !important; /* Hacer que la tabla ocupe todo el ancho */
+                           table-layout: fixed; /* Ajustar las celdas para que se adapten */
+                       }
+                       th, td {
+                           word-wrap: break-word; /* Permite que el texto largo se ajuste */
+                           padding: 8px; /* Reduce un poco el padding para que quepa mejor */
+                       }
+                   }
+                </style>
+            `;
+        }
 
 
 
+        // Añadir la clase 'open' para activar la animación de apertura
+        modal.classList.add('open');
 
+        // Mostrar el modal de forma gradual
+        modal.style.visibility = 'visible'; // Asegurarse de que el modal sea visible
+        }
 
+        function closeModal() {
+        const modal = document.getElementById('modal');
 
-  // Mostrar el modal
-  const modal = document.getElementById("modal-ganancias");
-  modal.style.display = "block";
-  modal.classList.add("show");
-}
+        // Eliminar la clase 'open' para activar la animación de cierre
+        modal.classList.remove('open');
 
-
-// Asociar el evento al botón "ver ganancias"
-document.getElementById("ver-ganancias").addEventListener("click", () => {
-  mostrarGanancias();
-  sideMenu.classList.remove("open");
-});
-
-// Cerrar el modal de ganancias al hacer clic en la X
-document.getElementById("close-ganancias-modal").addEventListener("click", () => {
-  const gananciasModal = document.getElementById("modal-ganancias");
-  gananciasModal.classList.remove("show");
-  gananciasModal.classList.add("hide");
-
-  gananciasModal.addEventListener(
-    "animationend",
-    () => {
-      gananciasModal.style.display = "none";
-      gananciasModal.classList.remove("hide");
-    },
-    { once: true }
-  );
-});
+        // Esperar a que termine la transición antes de ocultar el modal completamente
+        setTimeout(() => {
+            modal.style.visibility = 'hidden'; // Ocultar el modal después de la animación
+        }, 100); // Este tiempo debe coincidir con la duración de la transición
+        }
