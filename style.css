@@ -1,43 +1,46 @@
+/* Estilo general responsivo */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 10px;
-  background: linear-gradient(to bottom right, #1e1e1e, #2c2c2c); /* fondo oscuro elegante */
-  color: #f0f0f0;
+  background-color: #f2f2f2;
+  color: #333;
   text-align: center;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
+/* Título */
 h1 {
-  margin-bottom: 15px;
-  color: #ffffff;
+  margin-bottom: 10px;
+  font-size: 20px;
 }
 
+/* Botones uno debajo del otro */
 .button-container {
   display: flex;
-  flex-direction: column; /* botones uno debajo del otro */
-  align-items: center;
-  gap: 10px; /* espacio entre botones */
-  margin-bottom: 20px;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+  padding: 0 10px;
 }
 
 .button-container button {
-  width: 90%;
-  max-width: 300px;
   padding: 12px;
   font-size: 16px;
-  cursor: pointer;
   border-radius: 8px;
-  background: linear-gradient(135deg, #4CAF50, #388E3C);
+  background-color: #007BFF;
   color: white;
   border: none;
-  transition: background 0.3s ease;
+  width: 100%;
+  max-width: 100%;
 }
 
 .button-container button:hover {
-  background: linear-gradient(135deg, #66bb6a, #2e7d32);
+  background-color: #0056b3;
 }
 
-/* Modal estilos */
+/* Modal */
 .modal {
   display: none;
   position: fixed;
@@ -45,80 +48,59 @@ h1 {
   left: 0; top: 0;
   width: 100%; height: 100%;
   background-color: rgba(0,0,0,0.7);
-  display: flex;
   justify-content: center;
   align-items: center;
-  padding: 15px;
+  padding: 10px;
 }
 
 .modal-content {
-  background-color: #ffffff;
-  color: #333;
-  padding: 20px;
+  background-color: #fff;
+  padding: 15px;
+  width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  width: 95%;
-  max-width: 850px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  border-radius: 10px;
   text-align: left;
 }
 
+/* Botón de cerrar */
 .close {
   float: right;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: bold;
-  color: #666;
+  color: #888;
   cursor: pointer;
 }
 
-.close:hover {
-  color: #000;
-}
-
-/* Tabla responsiva */
+/* Tabla */
 .table-responsive {
+  width: 100%;
   overflow-x: auto;
-  margin-top: 10px;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 5px;
-  background-color: #fafafa;
-  color: #333;
+  margin-top: 10px;
+  background-color: white;
 }
 
 table th, table td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 10px;
+  font-size: 14px;
   text-align: left;
 }
 
 table th {
-  background-color: #ececec;
-  font-weight: 600;
+  background-color: #f0f0f0;
+  font-weight: bold;
 }
 
+/* Texto en negrita (resúmenes) */
 strong {
   display: block;
-  margin-top: 18px;
-  font-size: 17px;
-  color: #222;
-}
-
-/* Adaptación para móvil */
-@media (max-width: 600px) {
-  .modal-content {
-    padding: 15px;
-  }
-
-  table th, table td {
-    font-size: 14px;
-  }
-
-  strong {
-    font-size: 15px;
-  }
+  margin-top: 15px;
+  font-size: 15px;
+  color: #111;
 }
