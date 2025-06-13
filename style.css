@@ -1,175 +1,124 @@
-/* Fondo claro y moderno */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f5f7fa;
-  color: #333;
-  text-align: center;
-  padding-top: 60px;
   margin: 0;
+  padding: 10px;
+  background: linear-gradient(to bottom right, #1e1e1e, #2c2c2c); /* fondo oscuro elegante */
+  color: #f0f0f0;
+  text-align: center;
 }
 
-/* Título principal */
 h1 {
-  color: #2c3e50;
-  font-size: 2.5em;
-  font-weight: 700;
-  margin-bottom: 40px;
+  margin-bottom: 15px;
+  color: #ffffff;
 }
 
-/* Contenedor de botones */
 .button-container {
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  flex-direction: column; /* botones uno debajo del otro */
+  align-items: center;
+  gap: 10px; /* espacio entre botones */
+  margin-bottom: 20px;
 }
 
-/* Botones estilo moderno */
 .button-container button {
-  background: #3498db;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 28px;
+  width: 90%;
+  max-width: 300px;
+  padding: 12px;
   font-size: 16px;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(52, 152, 219, 0.4);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #4CAF50, #388E3C);
+  color: white;
+  border: none;
+  transition: background 0.3s ease;
 }
 
 .button-container button:hover {
-  background: #2980b9;
-  box-shadow: 0 6px 10px rgba(41, 128, 185, 0.6);
+  background: linear-gradient(135deg, #66bb6a, #2e7d32);
 }
 
-/* Modal de fondo translúcido */
+/* Modal estilos */
 .modal {
   display: none;
   position: fixed;
-  z-index: 999;
+  z-index: 1000;
   left: 0; top: 0;
   width: 100%; height: 100%;
-  background-color: rgba(44, 62, 80, 0.6);
-  backdrop-filter: blur(4px);
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
 }
 
-/* Contenido del modal con fondo blanco y sombra */
 .modal-content {
-  background: white;
-  color: #2c3e50;
-  margin: 10% auto;
-  padding: 30px 25px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 480px;
-  box-shadow: 0 8px 20px rgba(44, 62, 80, 0.3);
-  position: relative;
-  max-height: 75vh;
+  background-color: #ffffff;
+  color: #333;
+  padding: 20px;
+  max-height: 90vh;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  width: 95%;
+  max-width: 850px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  text-align: left;
 }
 
-/* Botón cerrar "X" */
 .close {
-  position: absolute;
-  top: 12px; right: 18px;
-  font-size: 28px;
-  color: #34495e;
+  float: right;
+  font-size: 26px;
+  font-weight: bold;
+  color: #666;
   cursor: pointer;
-  transition: color 0.3s ease;
 }
 
 .close:hover {
-  color: #e74c3c;
+  color: #000;
 }
 
-/* Estilo para tablas tipo Excel dentro del modal */
-.modal-content table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-  color: #2c3e50;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  border-radius: 6px;
-  overflow: hidden;
-  display: block; /* para scroll horizontal */
-  max-width: 100%;
-  -webkit-overflow-scrolling: touch;
-}
-
-.modal-content table th,
-.modal-content table td {
-  border: 1px solid #ddd;
-  padding: 10px 14px;
-  text-align: left;
-  vertical-align: middle;
-  white-space: nowrap;
-  background-clip: padding-box;
-}
-
-.modal-content table th {
-  background-color: #ecf0f1;
-  font-weight: 600;
-  color: #34495e;
-}
-
-.modal-content table tr:nth-child(even) {
-  background-color: #f7f9fa;
-}
-
-.modal-content table tr:hover {
-  background-color: #d6e9f8;
-}
-
-/* Ajuste responsivo para texto en pantallas chicas */
-@media (max-width: 480px) {
-  .modal-content table {
-    font-size: 12px;
-    display: block;
-    overflow-x: auto;
-  }
-  .modal-content {
-    width: 95%;
-    margin: 8% auto;
-    padding: 20px 15px;
-  }
-  .close {
-    font-size: 24px;
-    top: 8px;
-    right: 12px;
-  }
-}
-/* Contenedor con scroll horizontal para tablas */
+/* Tabla responsiva */
 .table-responsive {
-  width: 100%;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch; /* para smooth scroll en iOS */
-  margin-bottom: 15px;
+  margin-top: 10px;
 }
 
-/* Estilo base para las tablas */
 table {
-  border-collapse: collapse;
   width: 100%;
-  min-width: 300px; /* para que no se encojan mucho */
+  border-collapse: collapse;
+  margin-top: 5px;
+  background-color: #fafafa;
+  color: #333;
 }
 
-th, td {
-  padding: 6px;
-  border: 1px solid #ccc;
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 8px;
   text-align: left;
-  white-space: nowrap; /* evita que se rompa texto en celular */
 }
 
-thead th {
-  background-color: #eee;
+table th {
+  background-color: #ececec;
+  font-weight: 600;
 }
 
-/* Opcional: para mejorar lectura en móviles */
-@media (max-width: 480px) {
-  th, td {
-    padding: 4px;
+strong {
+  display: block;
+  margin-top: 18px;
+  font-size: 17px;
+  color: #222;
+}
+
+/* Adaptación para móvil */
+@media (max-width: 600px) {
+  .modal-content {
+    padding: 15px;
+  }
+
+  table th, table td {
     font-size: 14px;
+  }
+
+  strong {
+    font-size: 15px;
   }
 }
