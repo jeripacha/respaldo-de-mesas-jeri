@@ -313,4 +313,7 @@ function openModal(index) {
 
 function closeModal() {
   document.getElementById('modal').style.display = 'none';
-       }
+}
+window.onload = () => {
+  closeModal(); // fuerza a cerrar cualquier modal visible por error
+};
