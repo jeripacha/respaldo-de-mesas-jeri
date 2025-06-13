@@ -1,444 +1,175 @@
-body {  
-  font-family: 'Walter Turncoat', cursive;
-  background-color: #111;
-  margin: 0;
-  padding: 0;
-  color: white;
-  font-weight: bold; 
-}
-
-header {
+/* Fondo claro y moderno */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f7fa;
+  color: #333;
   text-align: center;
-  background-color: #222;
-  padding: 20px;
-  font-size: 32px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: #ff00ff; /* Color neón fucsia */
-  text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
+  padding-top: 60px;
+  margin: 0;
 }
 
-/* Estilo para el contenedor de los cuadrados */
-.squares-container {
+/* Título principal */
+h1 {
+  color: #2c3e50;
+  font-size: 2.5em;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+/* Contenedor de botones */
+.button-container {
   display: flex;
-  justify-content: center;  /* Asegura que los cuadros se centren horizontalmente */
-  align-items: center;  /* Asegura que los cuadros se centren verticalmente */
-  gap: 20px;  /* Espacio entre los cuadros */
-  margin-top: 40px;
-  flex-wrap: wrap;  /* Permite que los cuadrados se ajusten en nuevas filas si es necesario */
-}
-
-/* Media query para pantallas aún más pequeñas */
-@media (max-width: 480px) {
-  .square {
-    width: 170px !important;  /* Aumenta un poco más para pantallas aún más pequeñas */
-    height: 200px !important;
-  }
-}
-.square {
-  position: relative;
-  width: 280px;
-  height: 180px;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-  cursor: pointer;
-  background-color: #333;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-/* Imagen centrada dentro del cuadrado */
-.square img {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%; /* Puedes ajustar este porcentaje para hacerla más pequeña */
-    height: auto; /* Mantiene la proporción de la imagen */
-    object-fit: contain; /* Hace que la imagen se vea completa sin recortes */
-}
-
-
-.square:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 30px rgba(255, 0, 255, 1), 0 0 40px rgba(0, 255, 255, 1);
-}
-
-.overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 40%;
-  background: rgba(0, 0, 0, 0.6);
-  padding: 10px;
-  box-sizing: border-box;
-  border-radius: 0 0 15px 15px;
-}
-/* Imagen centrada dentro de los cuadrados */
-.square-image {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50%; /* Puedes ajustar este valor para hacer la imagen más pequeña o grande */
-    height: auto;
-}
-
-.image-name {
-  position: absolute;
-  bottom: 30px;
-  left: 15px;
-  color: #ff00ff;
-  font-size: 20px;
-  font-weight: bold;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
-}
-
-.image-date {
-  position: absolute;
-  bottom: 10px;
-  left: 15px;
-  color: #ff00ff;
-  font-size: 14px;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
-}
-
-.modal-content {
-  background: linear-gradient(to right, #893438, #896e24, #896e24, #893438); /* Degradado */
-  color: white; /* Color de texto blanco */
-  padding: 8px; /* Espaciado interno */
-  width: 120%; /* Cambiar el ancho a un valor relativo */
-  max-width: 1521px; /* Ancho máximo del modal */
-  border-radius: 3px; /* Bordes redondeados */
-  border: 2px solid white; /* Borde blanco */
-  text-align: left; /* Alinear texto a la izquierda (mejor para la tabla) */
-  max-height: 623px; /* Establece una altura máxima */
-  overflow-y: auto; /* Permite el desplazamiento vertical dentro del modal */
-  padding-right: 15px; /* Espacio extra para la barra de desplazamiento */
-  position: relative; /* Para controlar la posición del contenido */
-  top: 7px; /* Ajusta el valor para mover el modal hacia arriba */
-  display: flex; /* Usamos Flexbox para centrar la tabla */
-  flex-direction: column; /* Alinea el contenido verticalmente */
-  align-items: center; /* Centra el contenido en el eje horizontal */
-}
-
-/* Estilo del Modal */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 1115px; /* Se mantiene el ancho para pantallas grandes */
-  background-color: rgba(0, 0, 0, 0.7);
   justify-content: center;
-  align-items: center;
-  opacity: 0; /* Inicialmente invisible */
-  transform: translateY(-30px); /* Desplazado hacia arriba inicialmente */
-  visibility: hidden; /* Inicialmente invisible */
-  transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s 0.5s; /* Transiciones a opacidad, movimiento y visibilidad */
-}
-
-.modal.open {
-  visibility: visible; /* Hace visible el modal */
-  opacity: 1; /* Hace visible el modal */
-  transform: translateY(0); /* Devuelve el modal a su posición original */
-  transition: opacity 0.5s ease, transform 0.5s ease; /* Transiciones cuando el modal está abierto */
-}
-
-/* Media Queries para pantallas pequeñas */
-
-
-@media (max-width: 480px) {
-  .modal-content {
-    width: 60%; /* Más pequeño aún para móviles muy pequeños */
-    max-width: 639px; /* Asegura que el modal no sea más grande que el 95% del ancho de la pantalla */
-    max-height: 90vh; /* Limita la altura para evitar que sea demasiado grande */
-    padding: 10px; /* Ajustamos el padding para no ocupar demasiado espacio */
-  }
-
-  .modal {
-    width: 99vw; /* El modal ocupará el 100% del ancho */
-    height: 100vh; /* El modal ocupará el 100% de la altura */
-  }
-}
-
-
-/* Estilos de las tarjetas */
-.card-container {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-}
-
-.card {
-    background-color: #f0f0f0;
-    padding: 20px;
-    border-radius: 10px;
-    width: 200px;
-    text-align: center;
-}
-
-.card-title {
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.card-value {
-    font-size: 24px;
-    font-weight: bold;
-    color: #1a73e8;
-}
-
-/* Estilos de porcentaje */
-.porcentaje-container {
-    margin-top: 30px;
-    text-align: center;
-}
-
-.porcentaje-area {
-    display: flex;
-    justify-content: space-around;
-}
-
-.area {
-    text-align: center;
-}
-
-.porcentaje-circle {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: conic-gradient(#4caf50 var(--porcentaje), #e0e0e0 0);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: black;
-    font-weight: bold;
-    font-size: 18px;
-    position: relative;
-}
-
-.area p {
-    font-size: 14px;
-}
-
-/* Para animar el porcentaje */
-.porcentaje-circle span {
-    position: absolute;
-    font-size: 16px;
-    color: black;
-    z-index: 1;
-}
-
-/* Estilos de tabla */
-.table {
-  color: white;
-  width: 85%;
-  border-collapse: collapse;
-  margin: 10px auto;
-  background-color: transparent;
-  border-radius: 19px;
-  overflow: hidden;
-}
-
-.table th,
-.table td {
-  border: 5px solid white;
-  padding: 8px;
-  background-color: transparent;
-  color: white;
-}
-
-.table th {
-  background-color: transparent;
-  color: white;
-}
-
-.table th:nth-child(1) {
-  text-align: left;
-}
-
-.table th:nth-child(2) {
-  text-align: right;
-}
-
-.table td:nth-child(1) {
-  text-align: left;
-}
-
-.table td:nth-child(2) {
-  text-align: right;
-}
-
-
-
-/* Estilo para el botón de cierre */
-.modal .close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 30px;
-  color: #ff0066;
-  cursor: pointer;
-}
-
-
-/* Estilo responsive */
-@media (max-width: 768px) {
-  header {
-      font-size: 1.5rem;
-  }
-
-  .squares-container {
-      grid-template-columns: 1fr;
-      gap: 15px;
-      margin: 20px;
-  }
-
-  .square {
-      width: 120px;
-      height: 120px;
-      font-size: 1.2rem;
-  }
-
-  .modal-content {
-      width: 90%;
-  }
-}
-
-@media (max-width: 480px) {
-  .square {
-      width: 100px;
-      height: 100px;
-      font-size: 1rem;
-  }
-
-  .modal-content {
-      width: 95%;
-  }
-}
-
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
-  /* Espaciado entre tarjetas */
-  margin-top: 20px;
-}
-
-.card {
-  background: linear-gradient(135deg, white 50%, #d7d1d1 50%);
-  border-radius: 12px;
-  /* Bordes más suaves */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  padding: 18px;
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-}
-
-.card:hover {
-  transform: translateY(-8px);
-  /* Elevación al pasar el cursor */
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
-}
-
-.otros-montos-list {
-  display: none;
-  overflow: hidden;
-  transition: max-height 1.3s ease;
-  max-height: 0;
-
-}
-
-
-.card-content {
-  display: flex;
-  flex-direction: column;
-  /* Organizar el contenido verticalmente */
-  align-items: flex-start;
-  /* Alinear el contenido al inicio */
-
-}
-
-.card-title {
-  font-weight: bold;
-  /* Negrita para el título */
-  font-size: 1.2em;
-  /* Tamaño de fuente más grande */
-  color: #333;
-  /* Color del texto */
-}
-
-.card-value {
-  font-size: 1.5em;
-  /* Tamaño de fuente más grande para el valor */
-  color: #007bff;
-  /* Color del texto para el valor */
-  margin-top: 5px;
-  /* Espaciado superior */
-}
-
-.card-container {
-  display: flex;
-  flex-wrap: wrap; /* Permite que las tarjetas se acomoden en varias filas si es necesario */
-  gap: 10px; /* Espacio entre las tarjetas */
-  justify-content: space-evenly; /* Distribuye las tarjetas de manera equitativa */
-}
-
-.porcentaje-container {
-
-  border-radius: 20px;
-  /* Bordes redondeados */
-  padding: 20px;
-  /* Espaciado interno */
-  margin: 20px 0;
-  /* Margen superior e inferior */
-
-}
-
-.porcentaje-area {
-  display: grid;
-  grid-template-columns: repeat(2, 800fr);
-  /* Crear 4 columnas de igual tamaño */
   gap: 20px;
-  /* Aumento el espacio entre los elementos */
-  justify-items: center;
-  /* Centra los elementos dentro de cada celda */
-  align-items: center;
-  /* Centra los elementos verticalmente */
+  flex-wrap: wrap;
 }
 
+/* Botones estilo moderno */
+.button-container button {
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(52, 152, 219, 0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
 
-.porcentaje-circle {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  border: 7px solid #2f1313;
+.button-container button:hover {
+  background: #2980b9;
+  box-shadow: 0 6px 10px rgba(41, 128, 185, 0.6);
+}
+
+/* Modal de fondo translúcido */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(44, 62, 80, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+/* Contenido del modal con fondo blanco y sombra */
+.modal-content {
+  background: white;
+  color: #2c3e50;
+  margin: 10% auto;
+  padding: 30px 25px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 480px;
+  box-shadow: 0 8px 20px rgba(44, 62, 80, 0.3);
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.2em;
-  color: #333;
-  flex-shrink: 0; /* Fija el tamaño del círculo */
-  min-width: 50px;
-  min-height: 50px;
+  max-height: 75vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-.porcentaje-circle::before {
-  content: '';
+/* Botón cerrar "X" */
+.close {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 12px; right: 18px;
+  font-size: 28px;
+  color: #34495e;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close:hover {
+  color: #e74c3c;
+}
+
+/* Estilo para tablas tipo Excel dentro del modal */
+.modal-content table {
   width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  clip-path: inset(0 50% auto 0);
-  background: conic-gradient(#edebe8 var(--porcentaje),
-      /* Color ocupado */
-      #0a0a0a var(--porcentaje) 100%
-      /* Color no ocupado */
-    );
+  border-collapse: collapse;
+  font-size: 14px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  display: block; /* para scroll horizontal */
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal-content table th,
+.modal-content table td {
+  border: 1px solid #ddd;
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+  background-clip: padding-box;
+}
+
+.modal-content table th {
+  background-color: #ecf0f1;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.modal-content table tr:nth-child(even) {
+  background-color: #f7f9fa;
+}
+
+.modal-content table tr:hover {
+  background-color: #d6e9f8;
+}
+
+/* Ajuste responsivo para texto en pantallas chicas */
+@media (max-width: 480px) {
+  .modal-content table {
+    font-size: 12px;
+    display: block;
+    overflow-x: auto;
+  }
+  .modal-content {
+    width: 95%;
+    margin: 8% auto;
+    padding: 20px 15px;
+  }
+  .close {
+    font-size: 24px;
+    top: 8px;
+    right: 12px;
+  }
+}
+/* Contenedor con scroll horizontal para tablas */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* para smooth scroll en iOS */
+  margin-bottom: 15px;
+}
+
+/* Estilo base para las tablas */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 300px; /* para que no se encojan mucho */
+}
+
+th, td {
+  padding: 6px;
+  border: 1px solid #ccc;
+  text-align: left;
+  white-space: nowrap; /* evita que se rompa texto en celular */
+}
+
+thead th {
+  background-color: #eee;
+}
+
+/* Opcional: para mejorar lectura en móviles */
+@media (max-width: 480px) {
+  th, td {
+    padding: 4px;
+    font-size: 14px;
+  }
 }
