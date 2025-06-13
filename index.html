@@ -1,52 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Respaldo Mesas Pacha 2025</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Walter+Turncoat&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Respaldo de mesas Pacha</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        Respaldo Mesas Pacha 2025
-    </header>
+  <h1>Respaldo de mesas Pacha</h1>
 
-    <!-- Contenedor de los cuadrados -->
-    <div class="squares-container">
-        <div class="square" onclick="openModal('cuenta 1')">
-            <img class="square-image" src="WhatsApp Image 2025-01-09 at 20.28.26 (1).png" alt="Imagen 1">
-            <div class="overlay">
-                <div class="image-name">MESAS </div>
-                <div class="image-date">8 Febrero 2025</div>
-            </div>
-        </div>
-        <div class="square" onclick="openModal('informacion 2')">
-            <img class="square-image" src="WhatsApp Image 2025-01-09 at 20.28.26 (1).png" alt="Imagen 2">
-            <div class="overlay">
-                <div class="image-name">GANACIAS</div>
-                <div class="image-date">8 Febrero 2025</div>
-            </div>
-        </div>
+  <div class="button-container">
+    <button onclick="openModal(0)">13/06/2025</button>
+    <button onclick="openModal(1)">06/06/2025</button>
+    <button onclick="openModal(2)">30/05/2025</button>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <p id="modal-text"></p>
     </div>
+  </div>
 
-    <!-- Modal -->
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2 id="modal-title">Resumen de Cuentas</h2>
-            <div id="modal-text">
-                <!-- Aquí se cargará el contenido dinámicamente -->
-            </div>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
-
-
