@@ -1,478 +1,316 @@
-// Función para abrir el modal
-function openModal(info) {
-    var modal = document.getElementById('modal');
-    var modalText = document.getElementById('modal-text');
-    var modalTitle = document.getElementById('modal-title');  // Título del modal
+const data = [
+  {
+    resumenCuentas: [
+      { cuenta: "ignacio aguilar (150*****327)", monto: "2960 bs" },
+      { cuenta: "pacha sunset (201*****307)", monto: "29.310 bs" },
+      { cuenta: "mama (150*****327)", monto: "7200 bs" }
+    ],
+    totalCuentas: "39.470 bs",
 
-    modal.style.display = "block";
-    // Definir la variable 'porcentajes' con valores inventados
-    const porcentajes = {
-        pacha: 33.33,
-        parrales: 66.67,
-        lounge: 18.18,
-        cholet: 0.00,
-        camel: 33.33,
-        extras: 0.00,
-        Vip: 0.00
-    };
+    mesas: [
+      { mesa: "cumpleañero", cantidad: 22 },
+      { mesa: "pacha", cantidad: 0 },
+      { mesa: "cascabel", cantidad: 6 },
+      { mesa: "banx", cantidad: 7 },
+      { mesa: "jager", cantidad: 2 },
+      { mesa: "pachamama", cantidad: 9 }
+    ],
 
-    if (info === 'cuenta 1') {
-        modalTitle.innerHTML = "Resumen de Cuentas"; // Título para "MESAS"
-        modalText.innerHTML = `
-            <div style="display: flex; justify-content: center;">
-                <table class="table" style="width: 830px;">
-                    <thead>
-                        <tr>
-                            <th>Cuenta</th>
-                            <th>Monto Depositado (bs)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Ignacio Aguilar (150*****327)</td>
-                            <td>13,880 bs</td>
-                        </tr>
-                        <tr>
-                            <td>Mama (N/A)</td>
-                            <td>1,680 bs</td>
-                        </tr>
-                        <tr style="font-weight: bold; color: black;">
-                            <td>Total:</td>
-                            <td>15,560 bs</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    porcentajeAreas: [
+      { area: "Pacha", porcentaje: "60.00%" },
+      { area: "Parrales", porcentaje: "94.44%" },
+      { area: "Lounge", porcentaje: "81.82%" },
+      { area: "Cholet", porcentaje: "83.33%" },
+      { area: "Camel", porcentaje: "33.33%" },
+      { area: "Extras", porcentaje: "0.00%" },
+      { area: "Vip", porcentaje: "50.00%" }
+    ],
 
-            <div class="card-container">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-title">Mesas de 980 bs:</div>
-                        <div class="card-value">7</div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-title">Mesas de 900 bs:</div>
-                        <div class="card-value">1</div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-title">Mesas de 680 bs:</div>
-                        <div class="card-value">1</div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-title">Mesas de 750 bs:</div>
-                        <div class="card-value">0</div>
-                    </div>
-                </div>
-                <div class="card" id="otros-montos-card">
-                    <div class="card-content">
-                        <div class="card-title">Mesas de otros montos:</div>
-                        <div class="card-value">9</div>
-                    </div>
-                    <div class="otros-montos-list" style="display: none;">
-                        <!-- Aquí se añaden los otros montos al hacer clic -->
-                    </div>
-                </div>
-            </div>
+    combosEstrella: [
+      { combo: "cumpleañero", cantidad: 22 },
+      { combo: "pachamama", cantidad: 9 },
+      { combo: "banx", cantidad: 7 },
+      { combo: "cascabel", cantidad: 6 },
+      { combo: "jager", cantidad: 2 }
+    ],
+    totalCombos: 46,
 
-            <div class="porcentaje-container">
-                <h3>Porcentaje de áreas Vendidas</h3>
-                <div class="porcentaje-area">
-                    <div class="area pacha">
-                        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.pacha.toFixed(2)}%;"></div>
-                        <p>Pacha: ${porcentajes.pacha.toFixed(2)}%</p>
-                    </div>
-                    <div class="area parrales">
-                        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.parrales.toFixed(2)}%;"></div>
-                        <p>Parrales: ${porcentajes.parrales.toFixed(2)}%</p>
-                    </div>
-                    <div class="area lounge">
-                        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.lounge.toFixed(2)}%;"></div>
-                        <p>Lounge: ${porcentajes.lounge.toFixed(2)}%</p>
-                    </div>
-                    <div class="area cholet">
-                        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.cholet.toFixed(2)}%;"></div>
-                        <p>Cholet: ${porcentajes.cholet.toFixed(2)}%</p>
-                    </div>
-                    <div class="area camel">
-                        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.camel.toFixed(2)}%;"></div>
-                        <p>Camel: ${porcentajes.camel.toFixed(2)}%</p>
-                    </div>
-                    <div class="area extras">
-                        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.extras.toFixed(2)}%;"></div>
-                        <p>Extras: ${porcentajes.extras.toFixed(2)}%</p>
-                    </div>
-                    <div class="area Vip">
-                        <div class="porcentaje-circle" style="--porcentaje: ${porcentajes.Vip.toFixed(2)}%;"></div>
-                        <p>Vip: ${porcentajes.Vip.toFixed(2)}%</p>
-                    </div>
-                </div>
-            </div>
+    gananciasMama: [
+      { mesa: "pacha 1", acuerdo: "500", destino: "ignacio aguilar" },
+      { mesa: "parrales 17", acuerdo: "500", destino: "pacha sunset" }
+    ],
+    totalGananciasMama: "1000 bs",
 
-            <!-- GANANCIAS MAMA -->
-            <!-- Contenedor para la palabra Combo y la tabla -->
-            <div style="display: flex; flex-direction: column; align-items: center;">
+    depositosMama: [
+      { mesa: "pacha 4", acuerdo: "500", destino: "mama" },
+      { mesa: "parrales 7", acuerdo: "500", destino: "mama" },
+      { mesa: "lounge 2", acuerdo: "500", destino: "mama" },
+      { mesa: "lounge 7", acuerdo: "500", destino: "mama" },
+      { mesa: "lounge 10", acuerdo: "500", destino: "mama" },
+      { mesa: "cholet 1", acuerdo: "500", destino: "mama" },
+      { mesa: "cholet 3", acuerdo: "500", destino: "mama" }
+    ],
+    totalDepositosMama: "3500 bs",
 
-                <!-- Título "Combo" centrado -->
-                <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">
-                 GANANCIAS MAMA
-                </div>
+    bebidas: [
+      { bebida: "parrales", cantidad: 43 },
+      { bebida: "FDC5", cantidad: 24 },
+      { bebida: "fernet buhero", cantidad: 3 },
+      { bebida: "jager", cantidad: 2 },
+      { bebida: "viuda descalza", cantidad: 1 },
+      { bebida: "gin republica", cantidad: 1 }
+    ],
+    totalBebidas: 74,
 
-            <div style="display: flex; justify-content: center; margin-top: 20px;">
-                <table class="table" style="width: 830px;">
-                    <thead>
-                        <tr>
-                            <th>Mesa</th>
-                            <th>Cantidad</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>parrales 5</td>
-                            <td>400</td>
-                        </tr>
-                        <tr>
-                            <td>parrales 7</td>
-                            <td>400</td>
-                        </tr>
-                        <tr style="font-weight: bold; color: black;">
-                            <td>Depositar a MAMA:</td>
-                            <td>800 bs</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-<!-- Contenedor para la palabra Combo y la tabla -->
-<div style="display: flex; flex-direction: column; align-items: center;">
+    ingresosNetos: {
+      ingresos: "39,470 Bs",
+      inversion: "6,503.63 Bs",
+      gananciasNetas: "32,966.37 Bs"
+    }
+  },
 
-    <!-- Título "Combo" centrado -->
-    <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">
-        DEPOSITOS QUE MAMA DEBE REALIZAR A PACHA
-    </div>
-            <!-- DEPOSITOS QUE MAMA DEBE REALIZAR A PACHA -->
-            <div style="display: flex; justify-content: center; margin-top: 20px;">
-                <table class="table" style="width: 830px;">
-                    <thead>
-                        <tr>
-                            <th>Mesa</th>
-                            <th>Cantidad Extraída</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>parrales 6</td>
-                            <td>500</td>
-                        </tr>
-                        <tr>
-                            <td>parrales 16</td>
-                            <td>500</td>
-                        </tr>
-                        <tr style="font-weight: bold; color: black;">
-                            <td>Total que deben depositar a PACHA:</td>
-                            <td>1000 bs</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-<!-- Contenedor para la palabra Combo y la tabla -->
-<div style="display: flex; flex-direction: column; align-items: center;">
+  // --- Segundo bloque ---
+  {
+    resumenCuentas: [
+      { cuenta: "pacha sunset (201*****307)", monto: "43.470 bs" },
+      { cuenta: "natalia rodriguez (150*****327)", monto: "1000 bs" },
+      { cuenta: "ignacio aguilar (150*****327)", monto: "1680 bs" }
+    ],
+    totalCuentas: "46.150 bs",
 
-    <!-- Título "Combo" centrado -->
-    <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">
-        Combo
-    </div>
+    mesas: [
+      { mesa: "cumpleañero", cantidad: 32 },
+      { mesa: "pacha", cantidad: 1 },
+      { mesa: "cascabel", cantidad: 7 },
+      { mesa: "banx", cantidad: 5 },
+      { mesa: "jager", cantidad: 4 },
+      { mesa: "pachamama", cantidad: 4 }
+    ],
 
-               <div style="display: flex; justify-content: center; margin-top: 20px;">
-                   <table class="table" style="width: 830px;">
-                       <thead>
-                           <tr>
-                               <th>Combo</th>
-                               <th>Cantidad</th>
-                           </tr>
-                       </thead>
-                       <tbody>
-                           <tr>
-                               <td>cumpleañero</td>
-                               <td>6</td>
-                           </tr>
-                           <tr>
-                               <td>cascabel</td>
-                               <td>4</td>
-                           </tr>
-                           <tr>
-                               <td>jager</td>
-                               <td>3</td>
-                           </tr>
-                           <tr>
-                               <td>singani</td>
-                               <td>3</td>
-                           </tr>
-                           <tr>
-                               <td>pachamama</td>
-                               <td>2</td>
-                           </tr>
-                           <tr style="font-weight: bold; color: black;">
-                               <td>Total:</td>
-                               <td>18</td>
-                           </tr>
-                       </tbody>
-                   </table>
-               </div>
-                       <!-- BEBIDAS -->
-                       <!-- Contenedor para la palabra Combo y la tabla -->
-                           <div style="display: flex; flex-direction: column; align-items: center;">
+    porcentajeAreas: [
+      { area: "Pacha", porcentaje: "80.00%" },
+      { area: "Parrales", porcentaje: "88.89%" },
+      { area: "Lounge", porcentaje: "90.91%" },
+      { area: "Cholet", porcentaje: "91.67%" },
+      { area: "Camel", porcentaje: "100.00%" },
+      { area: "Extras", porcentaje: "0.00%" },
+      { area: "Vip", porcentaje: "66.67%" }
+    ],
 
-                               <!-- Título "Combo" centrado -->
-                               <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">
-                               BEBIDAS
-                               </div>
-                       <div style="display: flex; justify-content: center; margin-top: 20px;">
-                           <table class="table" style="width: 830px;">
-                               <thead>
-                                   <tr>
-                                       <th>Bebida</th>
-                                       <th>Cantidad</th>
-                                   </tr>
-                               </thead>
-                               <tbody>
-                                   <tr>
-                                       <td>singani parrales</td>
-                                       <td>17</td>
-                                   </tr>
-                                   <tr>
-                                       <td>flor de caña 5 años</td>
-                                       <td>6</td>
-                                   </tr>
-                                   <tr>
-                                       <td>jager</td>
-                                       <td>3</td>
-                                   </tr>
-                                   <tr>
-                                       <td>vodka</td>
-                                       <td>1</td>
-                                   </tr>
-                                   <tr>
-                                       <td>gin republica</td>
-                                       <td>1</td>
-                                   </tr>
-                                   <tr style="font-weight: bold; color: black;">
-                                       <td>Total:</td>
-                                       <td>28</td>
-                                   </tr>
-                               </tbody>
-                           </table>
-                       </div>
-                   <style>
-                           /* Media Query para pantallas pequeñas (móviles) */
-                           @media (max-width: 600px) {
-                               table {
-                                   width: 100% !important; /* Hace que la tabla ocupe todo el ancho */
-                                   table-layout: fixed; /* Ajusta las celdas para que se adapten */
-                               }
-                               th, td {
-                                   word-wrap: break-word; /* Permite que el texto largo se ajuste */
-                                   padding: 8px; /* Reduce un poco el padding para que quepa mejor */
-                               }
-                           }
-                       </style>
-        `;
-        const otrosMontosCard = document.getElementById("otros-montos-card");
-        if (otrosMontosCard) {
-            const listaContainer = otrosMontosCard.querySelector(".otros-montos-list");
+    combosEstrella: [
+      { combo: "cumpleañero", cantidad: 32 },
+      { combo: "cascabel", cantidad: 7 },
+      { combo: "banx", cantidad: 5 },
+      { combo: "pachamama", cantidad: 4 },
+      { combo: "jager", cantidad: 4 },
+      { combo: "pacha", cantidad: 1 }
+    ],
+    totalCombos: 53,
 
-            otrosMontosCard.addEventListener("click", () => {
-                if (listaContainer.style.display === "none" || listaContainer.style.display === "") {
-                    // Expandir
-                    listaContainer.style.display = "block";
+    gananciasMama: [
+      { mesa: "parrales 8", acuerdo: "500", destino: "pacha sunset" },
+      { mesa: "parrales 12", acuerdo: "500", destino: "pacha sunset" },
+      { mesa: "parrales 15", acuerdo: "500", destino: "pacha sunset" }
+    ],
+    totalGananciasMama: "1500 bs",
 
-                    // Añadir más mesas extras
-                    listaContainer.innerHTML = `
-                        <div style="color: black; font-weight: bold; font-size: 18px;">IGNACIO AGUILAR: 650 bs</div>
-                        <div style="color: black; font-weight: bold; font-size: 18px;">IGNACIO AGUILAR: 800 bs</div>
-                        <div style="color: black; font-weight: bold; font-size: 18px;">IGNACIO AGUILAR: 700 bs</div>
-                        <div style="color: black; font-weight: bold; font-size: 18px;">IGNACIO AGUILAR: 1000 bs</div>
-                        <div style="color: black; font-weight: bold; font-size: 18px;">MAMA: 780 bs</div>
-                        <div style="color: black; font-weight: bold; font-size: 18px;">IGNACIO AGUILAR: 760 bs</div>
-                        <div style="color: black; font-weight: bold; font-size: 18px;">IGNACIO AGUILAR: 800 bs</div>
-                        <div style="color: black; font-weight: bold; font-size: 18px;">IGNACIO AGUILAR: 830 bs</div>
-                        <div style="color: black; font-weight: bold; font-size: 18px;">IGNACIO AGUILAR: 800 bs</div>
-                    `;
+    depositosMama: [
+      { mesa: "pacha 6", acuerdo: "500", destino: "natalia rodriguez" }
+    ],
+    totalDepositosMama: "500 bs",
 
-                    // Ajustar la altura
-                    listaContainer.style.maxHeight = listaContainer.scrollHeight + "px"; // Ajustar la altura al contenido actualizado
+    bebidas: [
+      { bebida: "parrales", cantidad: 50 },
+      { bebida: "FDC5", cantidad: 32 },
+      { bebida: "fernet buhero", cantidad: 5 },
+      { bebida: "jager", cantidad: 3 },
+      { bebida: "vodka", cantidad: 3 },
+      { bebida: "viuda descalza", cantidad: 1 }
+    ],
+    totalBebidas: 94,
 
-                    setTimeout(() => {
-                        listaContainer.style.transition = "max-height 0.5s ease-in-out"; // Activar la transición
-                        listaContainer.style.maxHeight = listaContainer.scrollHeight + "px"; // Establecer la nueva altura
-                    }, 0);
-                } else {
-                    // Contraer
-                    listaContainer.style.transition = "max-height 0.5s ease-in-out"; // Animación suave
-                    listaContainer.style.maxHeight = "0"; // Reducir la altura a 0
+    ingresosNetos: {
+      ingresos: "46,150 Bs",
+      inversion: "9,078.94 Bs",
+      gananciasNetas: "37,071.06 Bs"
+    }
+  },
 
-                    setTimeout(() => {
-                        listaContainer.style.display = "none"; // Ocultar completamente después de la animación
-                    }, 500); // Debe coincidir con el tiempo de transición
-                }
-            });
-        }
-        } else if (info === 'informacion 2') {
-         modalTitle.innerHTML = "Total de Ingresos Netos por Ventas de Mesas"; // Título para "GANACIAS"
-            modalText.innerHTML = `
-            
-                <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin-top: 20px;">
-                    <!-- Tarjeta Total de Ingresos -->
-                    <div class="tarjeta" style="width: 250px; background-color: white; color: black; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center;">
-                        <div class="tarjeta-content">
-                            <!-- Ícono -->
-                            <div class="tarjeta-icon" style="font-size: 40px; color: #4CAF50; margin-bottom: 10px;">
-                                <i class="fa fa-dollar-sign"></i> <!-- Usando FontAwesome -->
-                            </div>
-                            <!-- Título -->
-                            <div class="tarjeta-title" style="font-size: 18px; font-weight: bold;">Total de Ingresos</div>
-                            <!-- Cantidad -->
-                            <div class="tarjeta-value" style="font-size: 22px;">13,880 bs</div>
-                        </div>
-                    </div>
-                    <!-- Tarjeta Inversión -->
-                    <div class="tarjeta" style="width: 250px; background-color: white; color: black; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center;">
-                        <div class="tarjeta-content">
-                            <!-- Ícono -->
-                            <div class="tarjeta-icon" style="font-size: 40px; color: #FF9800; margin-bottom: 10px;">
-                                <i class="fa fa-arrow-down"></i> <!-- Usando FontAwesome -->
-                            </div>
-                            <!-- Título -->
-                            <div class="tarjeta-title" style="font-size: 18px; font-weight: bold;">Inversión</div>
-                            <!-- Cantidad -->
-                            <div class="tarjeta-value" style="font-size: 22px;">2,603 bs</div>
-                        </div>
-                    </div>
-                    <!-- Tarjeta Ganancias Netas -->
-                    <div class="tarjeta" style="width: 250px; background-color: white; color: black; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center;">
-                        <div class="tarjeta-content">
-                            <!-- Ícono -->
-                            <div class="tarjeta-icon" style="font-size: 40px; color: #2196F3; margin-bottom: 10px;">
-                                <i class="fa fa-chart-line"></i> <!-- Usando FontAwesome -->
-                            </div>
-                            <!-- Título -->
-                            <div class="tarjeta-title" style="font-size: 18px; font-weight: bold;">Ganancias Netas</div>
-                            <!-- Cantidad -->
-                            <div class="tarjeta-value" style="font-size: 22px;">11,277 bs</div>
-                        </div>
-                    </div>
-                </div>
-<!-- Detalles de Inversión -->
-    <div style="display: flex; justify-content: center; margin-top: 30px;">
-        <table class="table" style="width: 830px;">
-            <thead>
-                <tr>
-                    <th>Producto</th>
-                    <th>Cantidad Usada</th>
-                    <th>Costo Invertido</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Jager</td>
-                    <td>3</td>
-                    <td>456 Bs</td>
-                </tr>
-                <tr>
-                    <td>Singani Parrales</td>
-                    <td>17</td>
-                    <td>1,054 Bs</td>
-                </tr>
-                <tr>
-                    <td>Vodka</td>
-                    <td>1</td>
-                    <td>85 Bs</td>
-                </tr>
-                <tr>
-                    <td>Flor de Caña 5 años</td>
-                    <td>6</td>
-                    <td>438 Bs</td>
-                </tr>
-                <tr>
-                    <td>Gin República</td>
-                    <td>1</td>
-                    <td>120 Bs</td>
-                </tr>
-                <tr>
-                    <td>Coca-Cola</td>
-                    <td>6</td>
-                    <td>54 Bs</td>
-                </tr>
-                <tr>
-                    <td>Schweppes Ginger Ale 1.5L</td>
-                    <td>17</td>
-                    <td>255 Bs</td>
-                </tr>
-                <tr>
-                    <td>Monster</td>
-                    <td>8</td>
-                    <td>120 Bs</td>
-                </tr>
-                <tr>
-                    <td>Agua Tónica</td>
-                    <td>2</td>
-                    <td>12 Bs</td>
-                </tr>
-                <tr>
-                    <td>Simba Pomelo</td>
-                    <td>1</td>
-                    <td>9 Bs</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-               <style>
-                   /* Estilo para pantallas pequeñas (móviles) */
-                   @media (max-width: 768px) {
-                       .tarjeta {
-                           width: 100%; /* Hacer las tarjetas ocupar todo el ancho disponible */
-                           margin-bottom: 20px; /* Espacio entre tarjetas */
-                       }
+  // --- Tercer bloque ---
+  {
+    resumenCuentas: [
+      { cuenta: "pacha sunset (201*****307)", monto: "32.520 bs" },
+      { cuenta: "mama (150*****327)", monto: "1800 bs" },
+      { cuenta: "fernando sejas (N/A)", monto: "980 bs" },
+      { cuenta: "natalia rodriguez (150*****327)", monto: "2100 bs" }
+    ],
+    totalCuentas: "37.400 bs",
 
-                       /* Asegurarse de que el contenedor de las tarjetas se ajuste bien */
-                       .tarjeta-content {
-                           padding: 15px;
-                       }
+    mesas: [
+      { mesa: "cumpleañero", cantidad: 22 },
+      { mesa: "pacha", cantidad: 0 },
+      { mesa: "cascabel", cantidad: 5 },
+      { mesa: "banx", cantidad: 11 },
+      { mesa: "jager", cantidad: 4 },
+      { mesa: "pachamama", cantidad: 4 }
+    ],
 
-                       table {
-                           width: 100% !important; /* Hacer que la tabla ocupe todo el ancho */
-                           table-layout: fixed; /* Ajustar las celdas para que se adapten */
-                       }
-                       th, td {
-                           word-wrap: break-word; /* Permite que el texto largo se ajuste */
-                           padding: 8px; /* Reduce un poco el padding para que quepa mejor */
-                       }
-                   }
-                </style>
-            `;
-        }
+    porcentajeAreas: [
+      { area: "Pacha", porcentaje: "60.00%" },
+      { area: "Parrales", porcentaje: "100.00%" },
+      { area: "Lounge", porcentaje: "81.82%" },
+      { area: "Cholet", porcentaje: "91.67%" },
+      { area: "Camel", porcentaje: "33.33%" },
+      { area: "Extras", porcentaje: "0.00%" },
+      { area: "Vip", porcentaje: "16.67%" }
+    ],
 
+    combosEstrella: [
+      { combo: "cumpleañero", cantidad: 22 },
+      { combo: "banx", cantidad: 11 },
+      { combo: "cascabel", cantidad: 5 },
+      { combo: "jager", cantidad: 4 },
+      { combo: "pachamama", cantidad: 4 }
+    ],
+    totalCombos: 46,
 
+    gananciasMama: [
+      { mesa: "pacha 4", acuerdo: "500", destino: "pacha sunset" }
+    ],
+    totalGananciasMama: "500 bs",
 
-        // Añadir la clase 'open' para activar la animación de apertura
-        modal.classList.add('open');
+    depositosMama: [
+      { mesa: "pacha 5", acuerdo: "500", destino: "mama" },
+      { mesa: "cholet 9", acuerdo: "500", destino: "natalia rodriguez" },
+      { mesa: "cholet 11", acuerdo: "500", destino: "natalia rodriguez" }
+    ],
+    totalDepositosMama: "1500 bs",
 
-        // Mostrar el modal de forma gradual
-        modal.style.visibility = 'visible'; // Asegurarse de que el modal sea visible
-        }
+    bebidas: [
+      { bebida: "parrales", cantidad: 42 },
+      { bebida: "FDC5", cantidad: 18 },
+      { bebida: "fernet buhero", cantidad: 4 },
+      { bebida: "jager", cantidad: 3 },
+      { bebida: "viuda descalza", cantidad: 2 },
+      { bebida: "gin la republica", cantidad: 2 }
+    ],
+    totalBebidas: 71,
 
-        function closeModal() {
-        const modal = document.getElementById('modal');
+    ingresosNetos: {
+      ingresos: "37,400 Bs",
+      inversion: "6,786.28 Bs",
+      gananciasNetas: "30,613.72 Bs"
+    }
+  }
+];
 
-        // Eliminar la clase 'open' para activar la animación de cierre
-        modal.classList.remove('open');
+function createTable(headers, rows) {
+  let html = "<div class='table-responsive'>"; // contenedor para scroll
+  html += "<table>";
+  html += "<thead><tr>";
+  headers.forEach(h => {
+    html += `<th>${h}</th>`;
+  });
+  html += "</tr></thead><tbody>";
+  rows.forEach(row => {
+    html += "<tr>";
+    for (const key in row) {
+      html += `<td>${row[key]}</td>`;
+    }
+    html += "</tr>";
+  });
+  html += "</tbody></table>";
+  html += "</div>";
+  return html;
+}
 
-        // Esperar a que termine la transición antes de ocultar el modal completamente
-        setTimeout(() => {
-            modal.style.visibility = 'hidden'; // Ocultar el modal después de la animación
-        }, 100); // Este tiempo debe coincidir con la duración de la transición
-        }
+function formatResumenCuentas(obj) {
+  return `<strong>RESUMEN DE CUENTAS</strong>` + createTable(
+    ["Cuenta", "Monto Depositado (bs)"],
+    obj.resumenCuentas
+  ) + `<p><strong>Total:</strong> ${obj.totalCuentas}</p>`;
+}
+
+function formatMesas(obj) {
+  return `<strong>Mesas</strong>` + createTable(
+    ["Mesa", "Cantidad"],
+    obj.mesas.map(m => ({ Mesa: m.mesa, Cantidad: m.cantidad }))
+  );
+}
+
+function formatPorcentajeAreas(obj) {
+  return `<strong>Porcentaje de áreas Vendidas</strong>` + createTable(
+    ["Área", "Porcentaje"],
+    obj.porcentajeAreas.map(p => ({ Área: p.area, Porcentaje: p.porcentaje }))
+  );
+}
+
+function formatCombosEstrella(obj) {
+  return `<strong>Combos estrella</strong>` + createTable(
+    ["Combo", "Cantidad"],
+    obj.combosEstrella.map(c => ({ Combo: c.combo, Cantidad: c.cantidad }))
+  ) + `<p><strong>Total:</strong> ${obj.totalCombos}</p>`;
+}
+
+function formatGananciasMama(obj) {
+  return `<strong>GANANCIAS MAMA</strong>` + createTable(
+    ["Mesa", "Acuerdo PachaMama", "Cuenta de destino"],
+    obj.gananciasMama.map(g => ({
+      Mesa: g.mesa,
+      "Acuerdo PachaMama": g.acuerdo,
+      "Cuenta de destino": g.destino
+    }))
+  ) + `<p><strong>Total depositar a MAMA:</strong> ${obj.totalGananciasMama}</p>`;
+}
+
+function formatDepositosMama(obj) {
+  return `<strong>DEPOSITOS QUE MAMA DEBE REALIZAR A PACHA</strong>` + createTable(
+    ["Mesa", "Acuerdo", "Cuenta de destino"],
+    obj.depositosMama.map(d => ({
+      Mesa: d.mesa,
+      Acuerdo: d.acuerdo,
+      "Cuenta de destino": d.destino
+    }))
+  ) + `<p><strong>Total que deben depositar a PACHA:</strong> ${obj.totalDepositosMama}</p>`;
+}
+
+function formatBebidas(obj) {
+  return `<strong>BEBIDAS</strong>` + createTable(
+    ["Bebida", "Cantidad"],
+    obj.bebidas.map(b => ({ Bebida: b.bebida, Cantidad: b.cantidad }))
+  ) + `<p><strong>Total:</strong> ${obj.totalBebidas}</p>`;
+}
+
+function formatIngresosNetos(obj) {
+  return `<strong>TOTAL DE INGRESOS NETOS POR VENTAS DE MESAS</strong>` +
+    `<table border='1' style='border-collapse: collapse; width: 100%;'>` +
+    `<tbody>` +
+    `<tr><td style='padding:6px;'>Ingresos</td><td style='padding:6px;'>${obj.ingresosNetos.ingresos}</td></tr>` +
+    `<tr><td style='padding:6px;'>Inversión</td><td style='padding:6px;'>${obj.ingresosNetos.inversion}</td></tr>` +
+    `<tr><td style='padding:6px;'>Ganancias Neta</td><td style='padding:6px;'>${obj.ingresosNetos.gananciasNetas}</td></tr>` +
+    `</tbody></table>`;
+}
+
+function generateContent(index) {
+  if (index < 0 || index >= data.length) return "";
+  const obj = data[index];
+  let html = "";
+  html += formatResumenCuentas(obj);
+  html += formatMesas(obj);
+  html += formatPorcentajeAreas(obj);
+  html += formatCombosEstrella(obj);
+  html += formatGananciasMama(obj);
+  html += formatDepositosMama(obj);
+  html += formatBebidas(obj);
+  html += formatIngresosNetos(obj);
+  return html;
+}
+
+function openModal(index) {
+  document.getElementById('modal-text').innerHTML = generateContent(index);
+  document.getElementById('modal').style.display = 'block';
+}
+
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+       }
