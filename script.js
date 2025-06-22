@@ -201,7 +201,73 @@ const data = [
       inversion: "6,786.28 Bs",
       gananciasNetas: "30,613.72 Bs"
     }
+  },
+  {
+  resumenCuentas: [
+    { cuenta: "ignacio aguilar (150*****327)", monto: "4900 bs" },
+    { cuenta: "pacha sunset (201*****307)", monto: "45.730 bs" },
+    { cuenta: "mama (150*****327)", monto: "2700 bs" }
+  ],
+  totalCuentas: "53.330 bs",
+
+  mesas: [
+    { mesa: "cumpleañero", cantidad: 30 },
+    { mesa: "pacha", cantidad: 0 },
+    { mesa: "cascabel", cantidad: 16 },
+    { mesa: "banx", cantidad: 9 },
+    { mesa: "jager", cantidad: 2 },
+    { mesa: "pachamama", cantidad: 5 }
+  ],
+
+  porcentajeAreas: [
+    { area: "Pacha", porcentaje: "90.00%" },
+    { area: "Parrales", porcentaje: "100.00%" },
+    { area: "Lounge", porcentaje: "100.00%" },
+    { area: "Cholet", porcentaje: "100.00%" },
+    { area: "Camel", porcentaje: "100.00%" },
+    { area: "Extras", porcentaje: "60.00%" },
+    { area: "Vip", porcentaje: "50.00%" }
+  ],
+
+  combosEstrella: [
+    { combo: "cumpleañero", cantidad: 30 },
+    { combo: "cascabel", cantidad: 16 },
+    { combo: "banx", cantidad: 9 },
+    { combo: "pachamama", cantidad: 5 },
+    { combo: "jager", cantidad: 2 }
+  ],
+  totalCombos: 62,
+
+  gananciasMama: [
+    { mesa: "lounge 2", acuerdo: "500", destino: "pacha sunset" },
+    { mesa: "lounge 3", acuerdo: "500", destino: "pacha sunset" },
+    { mesa: "extras 6", acuerdo: "500", destino: "pacha sunset" }
+  ],
+  totalGananciasMama: "1500 bs",
+
+  depositosMama: [
+    { mesa: "lounge 1", acuerdo: "500", destino: "mama" },
+    { mesa: "Vip 3", acuerdo: "500", destino: "mama" }
+  ],
+  totalDepositosMama: "1000 bs",
+
+  bebidas: [
+    { bebida: "parrales", cantidad: 61 },
+    { bebida: "FDC5", cantidad: 35 },
+    { bebida: "gin republica", cantidad: 4 },
+    { bebida: "vodka", cantidad: 3 },
+    { bebida: "fernet buhero", cantidad: 2 },
+    { bebida: "viuda descalza", cantidad: 2 },
+    { bebida: "jager", cantidad: 2 }
+  ],
+  totalBebidas: 109,
+
+  ingresosNetos: {
+    ingresos: "53,330 Bs",
+    inversion: "10,311.88 Bs",
+    gananciasNetas: "43,018.12 Bs"
   }
+}
 ];
 
 function createTable(headers, rows) {
@@ -225,11 +291,12 @@ function createTable(headers, rows) {
 }
 
 function formatResumenCuentas(obj) {
+  const cuentasConTotal = [...obj.resumenCuentas, { cuenta: "<strong>Total</strong>", monto: `<strong>${obj.totalCuentas}</strong>` }];
   return `<strong>RESUMEN DE CUENTAS</strong>` + createTable(
     ["Cuenta", "Monto Depositado (bs)"],
-    obj.resumenCuentas
-  ) + `<p><strong>Total:</strong> ${obj.totalCuentas}</p>`;
-}
+    cuentasConTotal.map(item => ({ Cuenta: item.cuenta, "Monto Depositado (bs)": item.monto }))
+  );
+}    
 
 function formatMesas(obj) {
   return `<strong>Mesas</strong>` + createTable(
@@ -246,39 +313,73 @@ function formatPorcentajeAreas(obj) {
 }
 
 function formatCombosEstrella(obj) {
+  const combosConTotal = [
+    ...obj.combosEstrella.map(c => ({ Combo: c.combo, Cantidad: c.cantidad })),
+    { Combo: "<strong>Total</strong>", Cantidad: `<strong>${obj.totalCombos}</strong>` }
+  ];
+
   return `<strong>Combos estrella</strong>` + createTable(
     ["Combo", "Cantidad"],
-    obj.combosEstrella.map(c => ({ Combo: c.combo, Cantidad: c.cantidad }))
-  ) + `<p><strong>Total:</strong> ${obj.totalCombos}</p>`;
+    combosConTotal
+  );
 }
 
 function formatGananciasMama(obj) {
-  return `<strong>GANANCIAS MAMA</strong>` + createTable(
-    ["Mesa", "Acuerdo PachaMama", "Cuenta de destino"],
-    obj.gananciasMama.map(g => ({
+  const datosConTotal = [
+    ...obj.gananciasMama.map(g => ({
       Mesa: g.mesa,
       "Acuerdo PachaMama": g.acuerdo,
       "Cuenta de destino": g.destino
-    }))
-  ) + `<p><strong>Total depositar a MAMA:</strong> ${obj.totalGananciasMama}</p>`;
+    })),
+    {
+      Mesa: "<strong>Total depositar a MAMA</strong>",
+      "Acuerdo PachaMama": `<strong>${obj.totalGananciasMama}</strong>`,
+      "Cuenta de destino": ""
+    }
+  ];
+
+  return `<strong>GANANCIAS MAMA</strong>` + createTable(
+    ["Mesa", "Acuerdo PachaMama", "Cuenta de destino"],
+    datosConTotal
+  );
 }
 
 function formatDepositosMama(obj) {
-  return `<strong>DEPOSITOS QUE MAMA DEBE REALIZAR A PACHA</strong>` + createTable(
-    ["Mesa", "Acuerdo", "Cuenta de destino"],
-    obj.depositosMama.map(d => ({
+  const datosConTotal = [
+    ...obj.depositosMama.map(d => ({
       Mesa: d.mesa,
       Acuerdo: d.acuerdo,
       "Cuenta de destino": d.destino
-    }))
-  ) + `<p><strong>Total que deben depositar a PACHA:</strong> ${obj.totalDepositosMama}</p>`;
+    })),
+    {
+      Mesa: "<strong>Total que deben depositar a PACHA</strong>",
+      Acuerdo: `<strong>${obj.totalDepositosMama}</strong>`,
+      "Cuenta de destino": ""
+    }
+  ];
+
+  return `<strong>DEPÓSITOS QUE MAMA DEBE REALIZAR A PACHA</strong>` + createTable(
+    ["Mesa", "Acuerdo", "Cuenta de destino"],
+    datosConTotal
+  );
 }
 
 function formatBebidas(obj) {
+  const datosConTotal = [
+    ...obj.bebidas.map(b => ({
+      Bebida: b.bebida,
+      Cantidad: b.cantidad
+    })),
+    {
+      Bebida: "<strong>Total</strong>",
+      Cantidad: `<strong>${obj.totalBebidas}</strong>`
+    }
+  ];
+
   return `<strong>BEBIDAS</strong>` + createTable(
     ["Bebida", "Cantidad"],
-    obj.bebidas.map(b => ({ Bebida: b.bebida, Cantidad: b.cantidad }))
-  ) + `<p><strong>Total:</strong> ${obj.totalBebidas}</p>`;
+    datosConTotal
+  );
 }
 
 function formatIngresosNetos(obj) {
