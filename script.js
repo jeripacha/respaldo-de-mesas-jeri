@@ -267,7 +267,70 @@ const data = [
     inversion: "10,311.88 Bs",
     gananciasNetas: "43,018.12 Bs"
   }
-}
+},
+{
+  resumenCuentas: [
+    { cuenta: "pacha sunset (20151 5955 59307)", monto: "47.440 bs" },
+    { cuenta: "mama (150*****327)", monto: "2000 bs" }
+  ],
+  totalCuentas: "49.440 bs",
+
+  mesas: [
+    { mesa: "cumpleañero", cantidad: 35 },
+    { mesa: "pacha", cantidad: 0 },
+    { mesa: "cascabel", cantidad: 10 },
+    { mesa: "banx", cantidad: 6 },
+    { mesa: "jager", cantidad: 2 },
+    { mesa: "pachamama", cantidad: 3 }
+  ],
+
+  porcentajeAreas: [
+    { area: "Pacha", porcentaje: "90.00%" },
+    { area: "Parrales", porcentaje: "100.00%" },
+    { area: "lounge", porcentaje: "100.00%" },
+    { area: "Cholet", porcentaje: "91.67%" },
+    { area: "Camel", porcentaje: "100.00%" },
+    { area: "Extras", porcentaje: "10.00%" },
+    { area: "Vip", porcentaje: "50.00%" }
+  ],
+
+  combosEstrella: [
+    { combo: "cumpleañero", cantidad: 35 },
+    { combo: "cascabel", cantidad: 10 },
+    { combo: "banx", cantidad: 6 },
+    { combo: "pachamama", cantidad: 3 },
+    { combo: "jager", cantidad: 2 }
+  ],
+  totalCombos: 56,
+
+  gananciasMama: [
+    { mesa: "cholet 6", acuerdo: "500", destino: "pacha sunset" }
+  ],
+  totalGananciasMama: "500 bs",
+
+  depositosMama: [
+    { mesa: "cholet 3", acuerdo: "500", destino: "mama" },
+    { mesa: "cholet 4", acuerdo: "500", destino: "mama" }
+  ],
+  totalDepositosMama: "1000 bs",
+
+  bebidas: [
+    { bebida: "parrales", cantidad: 56 },
+    { bebida: "FDC5", cantidad: 36 },
+    { bebida: "fernet buhero", cantidad: 3 },
+    { bebida: "jager", cantidad: 2 },
+    { bebida: "vodka", cantidad: 2 },
+    { bebida: "gin republica", cantidad: 1 },
+    { bebida: "fernet branca", cantidad: 1 }
+  ],
+  totalBebidas: 101,
+
+  ingresosNetos: {
+    ingresos: "49,440 Bs",
+    inversion: "9,623 Bs",
+    gananciasNetas: "39,817 Bs"
+  }
+  }
 ];
 
 function createTable(headers, rows) {
@@ -390,7 +453,9 @@ function formatIngresosNetos(obj) {
     `<tr><td style='padding:6px;'>Inversión</td><td style='padding:6px;'>${obj.ingresosNetos.inversion}</td></tr>` +
     `<tr><td style='padding:6px;'>Ganancias Neta</td><td style='padding:6px;'>${obj.ingresosNetos.gananciasNetas}</td></tr>` +
     `</tbody></table>`;
+  
 }
+
 
 function generateContent(index) {
   if (index < 0 || index >= data.length) return "";
